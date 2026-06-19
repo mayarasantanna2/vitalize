@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background: #f5f8fc;
+
+
+}
+
+/* CONTAINER GERAL */
+.header {
+    width: 90%;
+    margin: 25px auto;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    /* espaço entre logo e nav */
+        width:90%;
+
+  
+
+}
+
+/* LOGO (BLOCO SEPARADO) */
+.logo-box {
+    width: 90px;
+    height: 90px;
+
+    background: rgba(255, 255, 255, 0);
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.logo-box img {
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+}
+
+/* NAV COM GRADIENTE */
+.nav-bar {
+    flex: 1;
+    height: 90px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 50px;
+
+    background: linear-gradient(90deg,
+            #73D6D3,
+            #8FB9E8,
+            #B189E8,
+            #D98AD9);
+
+    border-radius: 999px 0 0 999px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .12);
+    width: 100%;
+}
+
+/* MENU */
+.menu {
+    display: flex;
+    list-style: none;
+    gap: 35px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+}
+
+/* BOTÃO */
+.btn {
+    background: white;
+    color: #9A7AE8;
+
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+
+    font-weight: 600;
+}
