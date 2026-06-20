@@ -93,69 +93,55 @@ body {
 
 
 
-
-.login-page{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    background:linear-gradient(
-        90deg,
-        #9ed9de,
-        #b7c7e6,
-        #d39ad8
-    );
-}
-
 .login-card{
-    width:500px;
+    width: 400px;
     background:#fff;
-    border-radius:25px;
-    padding:35px;
+    border-radius:20px;
+    padding:25px;
     position:relative;
 }
 
 .login-logo{
-    width:90px;
+    width:70px;
     display:block;
-    margin:0 auto 10px;
+    margin:0 auto 8px;
 }
 
 .login-titulo{
     text-align:center;
-    font-size:2rem;
-    margin-bottom:20px;
+    font-size:1.7rem;
+    margin-bottom:15px;
 }
 
 .login-form label{
     display:block;
-    margin:10px 0 5px;
+    margin:6px 0 3px;
+    font-size:14px;
 }
 
 .login-input{
     width:100%;
-    height:45px;
+    height:40px;
     border:none;
-    border-radius:30px;
-    padding:0 20px;
+    border-radius:25px;
+    padding:0 15px;
     background:#efdff0;
 }
 
 .login-btn{
-     width:220px;
-    height:50px;
+    width:180px;
+    height:42px;
 
     border:none;
     border-radius:999px;
 
-    margin:25px auto 0;
+    margin:18px auto 0;
 
     display:block;
     cursor:pointer;
 
     font-family:"Jost", sans-serif;
-    font-size:16px;
+    font-size:15px;
     font-weight:600;
 
     background:#AEE1E0;
@@ -186,4 +172,154 @@ body {
 .login-btn-voltar span{
     color:#ffffff;
     font-size:22px;
+}
+.login-page{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:linear-gradient(
+        90deg,
+        #9ed9de,
+        #b7c7e6,
+        #d39ad8
+    );
+}
+
+.cadastro-card{
+    width:400px;
+    background:#fff;
+    border-radius:20px;
+    padding:25px;
+    position:relative;
+
+    margin-top:3%;
+    margin-bottom:3%;
+}
+.cadastro-page{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:linear-gradient(
+        90deg,
+        #9ed9de,
+        #b7c7e6,
+        #d39ad8
+    );
+}
+
+.subcadastro{
+    font-size: 15px;
+    text-align: center;
+    margin-top: 10px;
+
+}
+a{
+    text-decoration: none;
+}
+.sublink{
+    color:#B189E8;
+    font-weight:500;
+}
+.sublink:hover{
+    color:#9A7AE8;
+}
+.sublogin1{
+    font-size: 15px;
+    text-align: left;
+    margin-top: 10px;
+
+}
+.sublogin2{
+    font-size: 15px;
+    text-align: right;
+    margin-top: 10px;
+
+}
+a,
+a:visited,
+a:link{
+    text-decoration: none;
+    color: inherit;
+}
+
+.sublink{
+    color:#B189E8 !important;
+    font-weight:500;
+}
+
+.sublink:hover{
+    color:#9A7AE8;
+}
+.sobre-card{
+    width:800px;
+    background:#73d6d3;
+    border-radius:20px;
+    padding:23px;
+    position:relative;
+    text-align: center;
+    margin-left: 25%;
+    font-size: 17px;
+    line-height: 26px;
+}
+.h1titulo{
+    text-align:center;
+    font-size:1.7rem;
+    margin-bottom:15px;
+    padding: 20px;
+}
+
+.integrantesec{
+    padding: 60px 20px;
+    text-align: center;
+    background: #B189E8;
+    margin-top: 5%;
+}
+
+.titulo-integrantes{
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #ffffff;
+}
+
+.integrantes-container{
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.card-integrante{
+    background: white;
+    width: 200px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card-integrante:hover{
+    transform: translateY(-8px);
+}
+
+.card-integrante img{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 3px solid #B189E8;
+}
+
+.card-integrante h3{
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.card-integrante p{
+    font-size: 13px;
+    color: #666;
 }
