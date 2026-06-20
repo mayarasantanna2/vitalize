@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <nav class="header">
+
+        <div class="logo-box">
+            <img src="img/logov.png" alt="">
+        </div>
+
+        <div class="nav-bar">
+            <ul class="menu">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="grupos.html">Grupos</a></li>
+                <li><a href="doacao.html">Doação</a></li>
+                <li><a href="saude.html">Saúde</a></li>
+                <li><a href="relatos.html">Relatos</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+            </ul>
+
+            <a href="login.html" class="btnav">Entrar</a>
+        </div>
+
+    </nav>
+
+    <section class="cadastro-grupo">
+
+        <img src="img/logov.png" class="logo-topo">
+
+        <h1 class="h1titulo">Cadastre um grupo de apoio</h1>
+
+
+        <div class="linha"></div>
+
+        <div class="container-grupo">
+
+            <div class="upload-cx">
+                <span>+</span>
+                <p>INSIRA UMA<br>IMAGEM AQUI</p>
+            </div>
+
+            <div class="dados-grupo">
+
+                <h2>Dados do Grupo</h2>
+
+                <label>Nome do grupo*</label>
+                <input type="text">
+
+                <div class="linha-inputs">
+                    <div>
+                        <label>Data*</label>
+                        <input type="date">
+                    </div>
+
+                    <div>
+                        <label>Horário*</label>
+                        <input type="time">
+                    </div>
+                </div>
+
+                <div class="linha-inputs">
+
+                    <div>
+                        <label>O seu grupo será*</label>
+
+                        <div>
+                            <input type="radio" name="tipo"> Online
+                        </div>
+
+                        <div>
+                            <input type="radio" name="tipo"> Presencial
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Local do grupo</label>
+                        <input type="text" placeholder="(Local ou link)">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="info-adicionais">
+
+            <h2>Informações Adicionais</h2>
+
+            <label>Foco em:</label>
+            <input type="text" placeholder=" (ex: Idosos, Pacientes com...)">
+
+            <label>Responsável pelo grupo*</label>
+            <input type="text">
+
+            <label>Contato</label>
+            <input type="text" placeholder="(00)00000-0000">
+
+            <label>Mais informações:</label>
+            <textarea></textarea>
+
+        </div>
+
+        <button class="cadastrogrp-btn">CONFIRMAR</button>
+
+    </section>
+
+</body>
+
+</html>

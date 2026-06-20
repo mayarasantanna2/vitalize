@@ -269,7 +269,7 @@ a:link {
 
     margin: 0 auto;
     text-align: justify;
-  
+
     justify-content: center;
     align-items: center;
 
@@ -432,4 +432,110 @@ a:link {
     font-size: 40px;
     margin-bottom: 40px;
     width: 100%;
+}
+
+
+
+.cadastro-grupo {
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px;
+    background: #f5f5f5;
+    border-radius: 30px;
+    border: 4px solid #adadad;
+    margin-top: 5%;
+}
+
+.logo-topo {
+    width: 90px;
+    display: block;
+    margin: 0 auto;
+}
+
+.linha {
+    width: 200px;
+    height: 3px;
+    background: #a1eaea;
+    margin: 10px auto 50px;
+}
+
+.container-grupo {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.upload-cx {
+    width: 350px;
+    height: 230px;
+    border: 4px solid #cfa4f0;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #7b4ad9;
+}
+
+.upload-box span {
+    font-size: 80px;
+}
+
+.dados-grupo {
+    width: 450px;
+}
+
+.dados-grupo h2,
+.info-adicionais h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background: #ddd;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+textarea {
+    height: 120px;
+    resize: none;
+}
+
+.linha-inputs {
+    display: flex;
+    gap: 20px;
+}
+
+.linha-inputs div {
+    flex: 1;
+}
+
+.info-adicionais {
+    max-width: 600px;
+    margin-top: 50px;
+}
+
+.cadastrogrp-btn {
+    display: block;
+    margin: 40px auto 0;
+    padding: 15px 60px;
+    border: none;
+    border-radius: 40px;
+    background: #b9e7e7;
+    font-family: "Jost", sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.placeholder {
+    font-family: "Jost", sans-serif;
+    text-decoration: none;
 }
