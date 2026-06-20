@@ -280,8 +280,8 @@ a:link{
 }
 
 .titulo-integrantes{
-    font-size: 28px;
-    margin-bottom: 30px;
+    font-size: 30px;
+    margin-bottom: 40px;
     color: #ffffff;
 }
 
@@ -306,8 +306,8 @@ a:link{
 }
 
 .card-integrante img{
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
     border-radius: 50%;
     margin-bottom: 10px;
