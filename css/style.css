@@ -442,8 +442,10 @@ a:link {
     padding: 40px;
     background: #f5f5f5;
     border-radius: 30px;
-    border: 4px solid #adadad;
+    border: 3px solid #d9d9d9;
     margin-top: 5%;
+    position: relative;
+    overflow: hidden;
 }
 
 .logo-topo {
@@ -466,19 +468,31 @@ a:link {
     flex-wrap: wrap;
 }
 
+
 .upload-cx {
     width: 350px;
     height: 230px;
+
     border: 4px solid #cfa4f0;
     border-radius: 25px;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     color: #7b4ad9;
+
+    background: white;
 }
 
-.upload-box span {
+.upload-cx p {
+    text-align: center;
+    font-size: 22px;
+    font-style: italic;
+}
+
+.upload-cx span {
     font-size: 80px;
 }
 
@@ -518,8 +532,9 @@ textarea {
 }
 
 .info-adicionais {
-    max-width: 600px;
-    margin-top: 50px;
+    width: 500px;
+    margin-top: 40px;
+    margin-left: 15px;
 }
 
 .cadastrogrp-btn {
@@ -535,7 +550,30 @@ textarea {
     font-weight: 600;
 }
 
-.placeholder {
+::placeholder {
     font-family: "Jost", sans-serif;
-    text-decoration: none;
+    color: #888;
+}
+
+.borboleta-direita {
+    position: absolute;
+
+    right: -120px;
+    bottom: 40px;
+
+    width: 550px;
+    opacity: 0.35;
+
+    pointer-events: none;
+}
+.radio-opcao{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.radio-opcao input{
+    width: auto;
+    margin: 0;
 }
