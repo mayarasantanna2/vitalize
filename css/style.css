@@ -258,22 +258,29 @@ a:link {
     color: #9A7AE8;
 }
 
+
+
+
 .sobre-card {
+    max-width: 900px;
 
-    background: #73d6d3;
-    color: black;
-    max-width: 750px;
-    min-height: 200px;
-    padding: 35px;
-    border-radius: 20px;
+    margin: 40px auto;
 
-    margin: 0 auto;
-    text-align: justify;
+    padding: 40px;
 
-    justify-content: center;
-    align-items: center;
+    background: white;
 
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 30px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+
+    border-top: 6px solid #B189E8;
+
+    line-height: 1.8;
+
+    color: #555;
+
+    font-size: 17px;
 }
 
 
@@ -285,16 +292,17 @@ a:link {
 }
 
 .integrantesec {
-    padding: 60px 20px;
-    text-align: center;
-    background: #B189E8;
-    margin-top: 5%;
+    padding: 100px 20px;
+
+    background: #f8f9fc;
 }
 
 .titulo-integrantes {
-    font-size: 30px;
-    margin-bottom: 40px;
-    color: #ffffff;
+    font-size: 42px;
+
+    color: #2f2f2f;
+
+    margin-bottom: 60px;
 }
 
 .integrantes-container {
@@ -305,35 +313,42 @@ a:link {
 }
 
 .card-integrante {
+    width: 230px;
+
     background: white;
-    width: 200px;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-    transition: 0.3s;
+
+    border-radius: 28px;
+
+    padding: 25px;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+
+    transition: .3s;
 }
 
 .card-integrante:hover {
-    transform: translateY(-8px);
+    transform: translateY(-10px);
 }
 
 .card-integrante img {
     width: 150px;
     height: 150px;
-    object-fit: cover;
+
     border-radius: 50%;
-    margin-bottom: 10px;
-    border: 3px solid #B189E8;
+
+    object-fit: cover;
+
+    border: 4px solid #D98AD9;
 }
 
 .card-integrante h3 {
-    font-size: 16px;
-    margin: 5px 0;
+    margin-top: 15px;
+
+    font-size: 20px;
 }
 
 .card-integrante p {
-    font-size: 13px;
-    color: #666;
+    color: #777;
 }
 
 .prof-container {
