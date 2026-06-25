@@ -33,6 +33,9 @@
             </ul>
 
             <a href="login.html" class="btnav">Entrar</a>
+             <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
 
     </nav>
@@ -135,7 +138,13 @@
         </div>
 
     </footer>
+    <script>
+        const toggle = document.querySelector(".menu-toggle");
+        const menu = document.querySelector(".menu");
 
+        toggle.addEventListener("click", () => {
+            menu.classList.toggle("ativo");
+        });</script>
 </body>
 
 </html>

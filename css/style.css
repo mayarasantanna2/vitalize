@@ -13,7 +13,6 @@ body {
 
 }
 
-/* CONTAINER GERAL */
 .header {
     position: fixed;
     top: 15px;
@@ -28,7 +27,6 @@ body {
     gap: 15px;
 }
 
-/* LOGO (BLOCO SEPARADO) */
 .logo-box {
     width: 90px;
     height: 90px;
@@ -48,7 +46,6 @@ body {
     object-fit: contain;
 }
 
-/* NAV COM GRADIENTE */
 .nav-bar {
     flex: 1;
     height: 90px;
@@ -70,53 +67,74 @@ body {
     width: 100%;
 }
 
-@media (max-width: 900px) {
-
-    .header {
-        flex-direction: column;
-        gap: 10px;
-        width: 95%;
-    }
-
-    .logo-box {
-        width: 70px;
-        height: 70px;
-    }
-
-    .logo-box img {
-        width: 60px;
-        height: 60px;
-    }
-
-    .nav-bar {
-        height: auto;
-        padding: 20px;
-        flex-direction: column;
-        gap: 15px;
-        border-radius: 25px;
-    }
-
-    .menu {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-    }
-
-    .btnav {
-        padding: 10px 20px;
-    }
-
-    body {
-        padding-top: 220px;
-    }
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 32px;
+    cursor: pointer;
 }
-
-
-/* MENU */
 .menu {
     display: flex;
     list-style: none;
     gap: 35px;
+}
+
+@media (max-width: 900px) {
+
+    .header {
+        width: 95%;
+    }
+
+    .nav-bar {
+        position: relative;
+        height: 70px;
+        padding: 0 20px;
+    }
+
+    .menu-toggle {
+        display: block;
+        margin-left: auto;
+    }
+
+    .menu {
+        display: none;
+
+        position: absolute;
+        top: 85px;
+        left: 0;
+
+        width: 100%;
+
+        flex-direction: column;
+        align-items: center;
+
+        gap: 20px;
+        padding: 25px 0;
+
+        background: linear-gradient(
+            90deg,
+            #73D6D3,
+            #8FB9E8,
+            #B189E8,
+            #D98AD9
+        );
+
+        border-radius: 25px;
+    }
+
+    .menu.ativo {
+        display: flex;
+    }
+
+    .btnav {
+        display: none;
+    }
+
+    body {
+        padding-top: 120px;
+    }
 }
 
 .menu a {
@@ -125,7 +143,6 @@ body {
     font-weight: 500;
 }
 
-/* BOTÃO */
 .btnav {
     background: white;
     color: #9A7AE8;
@@ -224,13 +241,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-     margin-top: -130px;
+    margin-top: -130px;
 
     background: linear-gradient(90deg,
             #9ed9de,
             #b7c7e6,
             #d39ad8);
-            
+
 }
 
 .cadastro-card {
@@ -651,7 +668,7 @@ textarea {
 
 
 
- @media (max-width: 900px) {
+@media (max-width: 900px) {
 
     .cadastro-grupo {
         padding: 30px 20px;
@@ -2037,7 +2054,7 @@ textarea {
     gap: 15px;
 }
 
-.categoria-refeicao {
+_ .categoria-refeicao {
     min-width: 130px;
     padding: 10px 18px;
 
@@ -2052,6 +2069,7 @@ textarea {
     align-items: center;
     justify-content: center;
 }
+
 .categoria-refeicao.cafe {
     background: #fce8d4;
     color: #d47a3a;
@@ -2472,7 +2490,7 @@ textarea {
     box-shadow: 0 20px 40px rgba(0, 0, 0, .2);
 
     animation: aparecer .3s ease;
-   
+
     max-height: calc(100vh - 60px);
 
     overflow-y: auto;

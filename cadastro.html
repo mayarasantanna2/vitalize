@@ -47,14 +47,22 @@
                 <label>Repita a Senha:</label>
                 <input type="password" class="login-input">
 
-                <button  class="login-btn">Cadastrar</button>
+                <button class="login-btn">Cadastrar</button>
 
-                <p class="subcadastro">Já tem uma conta? <a class="sublink" href="login.html">Clique Aqui</a> </p> 
-               
+                <p class="subcadastro">Já tem uma conta? <a class="sublink" href="login.html">Clique Aqui</a> </p>
+
             </form>
 
         </div>
     </div>
+    <script>
+        const toggle = document.querySelector(".menu-toggle");
+        const menu = document.querySelector(".menu");
+
+        toggle.addEventListener("click", () => {
+            menu.classList.toggle("ativo");
+        });
+    </script>
 </body>
 
 </html>

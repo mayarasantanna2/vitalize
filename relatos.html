@@ -34,6 +34,9 @@
             </ul>
 
             <a href="login.html" class="btnav">Entrar</a>
+             <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
 
     </nav>
@@ -152,7 +155,7 @@
                     pensei que não conseguiria lidar com tudo aquilo. Porém, ao longo do caminho, descobri uma força que
                     eu nem sabia que tinha. Cada sessão de tratamento me ensinou a ter paciência, coragem e gratidão.
                     Hoje, olho para trás e vejo o quanto cresci como pessoa, aprendendo a valorizar ainda mais a vida e
-                    as pessoas ao meu redor.    
+                    as pessoas ao meu redor.
                 </div>
             </div>
 
@@ -179,5 +182,14 @@
         </div>
 
     </footer>
+    <script>
+        const toggle = document.querySelector(".menu-toggle");
+        const menu = document.querySelector(".menu");
 
+        toggle.addEventListener("click", () => {
+            menu.classList.toggle("ativo");
+        });
+    </script>
 </body>
+
+</html>
