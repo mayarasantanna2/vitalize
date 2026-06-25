@@ -7,20 +7,25 @@
 body {
     font-family: "Jost", sans-serif;
     background: #f5f8fc;
+    padding-top: 130px;
+
 
 
 }
 
 /* CONTAINER GERAL */
 .header {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+
     width: 90%;
-    margin: 25px auto;
+    z-index: 9999;
 
     display: flex;
     align-items: center;
     gap: 15px;
-    /* espaço entre logo e nav */
-    width: 90%;
 }
 
 /* LOGO (BLOCO SEPARADO) */
@@ -63,6 +68,47 @@ body {
     border-radius: 999px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, .12);
     width: 100%;
+}
+
+@media (max-width: 900px) {
+
+    .header {
+        flex-direction: column;
+        gap: 10px;
+        width: 95%;
+    }
+
+    .logo-box {
+        width: 70px;
+        height: 70px;
+    }
+
+    .logo-box img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .nav-bar {
+        height: auto;
+        padding: 20px;
+        flex-direction: column;
+        gap: 15px;
+        border-radius: 25px;
+    }
+
+    .menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .btnav {
+        padding: 10px 20px;
+    }
+
+    body {
+        padding-top: 220px;
+    }
 }
 
 
@@ -258,6 +304,24 @@ a:link {
     color: #9A7AE8;
 }
 
+.login-card,
+.cadastro-card,
+.login-btn {
+    width: 90%;
+    max-width: 400px;
+}
+
+@media (max-width: 768px) {
+
+    .titulo-integrantes,
+    .titulo-agradecimento {
+        font-size: 30px;
+    }
+
+    .h1titulo {
+        font-size: 1.4rem;
+    }
+}
 
 
 
@@ -454,7 +518,7 @@ a:link {
 .cadastro-grupo {
     max-width: 1100px;
     margin: auto;
-    padding: 40px;
+    padding: 5%;
     background: #f5f5f5;
     border-radius: 30px;
     border: 3px solid #d9d9d9;
@@ -580,6 +644,129 @@ textarea {
     opacity: 0.35;
 
     pointer-events: none;
+}
+
+
+
+TABLET==========================*/ @media (max-width: 900px) {
+
+    .cadastro-grupo {
+        padding: 30px 20px;
+        margin: 20px;
+    }
+
+    .container-grupo {
+        gap: 30px;
+    }
+
+    .upload-cx {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .dados-grupo,
+    .info-adicionais {
+        width: 100%;
+        max-width: 600px;
+        margin-left: 0;
+    }
+
+    .borboleta-direita {
+        width: 350px;
+        right: -100px;
+        bottom: -20px;
+    }
+}
+
+
+
+@media (max-width: 768px) {
+
+    .cadastro-grupo {
+        padding: 25px 15px;
+        border-radius: 20px;
+    }
+
+    .logo-topo {
+        width: 70px;
+    }
+
+    .linha {
+        width: 120px;
+        margin-bottom: 30px;
+    }
+
+    .container-grupo {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .upload-cx {
+        width: 100%;
+        height: 180px;
+    }
+
+    .upload-cx span {
+        font-size: 60px;
+    }
+
+    .upload-cx p {
+        font-size: 18px;
+    }
+
+    .dados-grupo,
+    .info-adicionais {
+        width: 100%;
+    }
+
+    .linha-inputs {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .cadastrogrp-btn {
+        width: 100%;
+        max-width: 300px;
+        padding: 14px;
+        font-size: 16px;
+    }
+
+    .borboleta-direita {
+        display: none;
+    }
+}
+
+
+
+@media (max-width: 480px) {
+
+    .cadastro-grupo {
+        margin: 10px;
+        padding: 20px 12px;
+    }
+
+    .upload-cx {
+        height: 160px;
+    }
+
+    .upload-cx span {
+        font-size: 50px;
+    }
+
+    .upload-cx p {
+        font-size: 16px;
+    }
+
+    .dados-grupo h2,
+    .info-adicionais h2 {
+        font-size: 20px;
+    }
+
+    input,
+    textarea {
+        font-size: 14px;
+    }
 }
 
 
@@ -755,6 +942,141 @@ textarea {
 }
 
 
+@media (max-width: 1024px) {
+
+    .galeria {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cardsgrupos {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cards-parceiras {
+        grid-template-columns: 1fr;
+    }
+
+    .linha-decoracao {
+        width: 250px;
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .galeria {
+        grid-template-columns: 1fr;
+        width: 92%;
+    }
+
+    .galeria img {
+        height: 250px;
+    }
+
+    .cardsgrupos {
+        grid-template-columns: 1fr;
+        width: 92%;
+    }
+
+    .cardgrupos {
+        max-width: 100%;
+    }
+
+    .cards-parceiras {
+        width: 92%;
+    }
+
+    .card-salao {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .card-salao img {
+        width: 100%;
+        height: 220px;
+    }
+
+    .info-salao {
+        align-items: center;
+    }
+
+    .info-salao h3 {
+        font-size: 22px;
+    }
+
+    .titulo-doacao {
+        font-size: 26px;
+    }
+
+    .texto-doacao {
+        font-size: 17px;
+        padding: 0 10px;
+    }
+
+    .parceiras h2 {
+        font-size: 30px;
+    }
+
+    .decoracao {
+        gap: 8px;
+    }
+
+    .linha-decoracao {
+        width: 100px;
+    }
+
+    .decoracao img {
+        width: 45px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .conteudocards h3 {
+        font-size: 22px;
+    }
+
+    .infosgrupo {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .botoescards {
+        flex-direction: column;
+    }
+
+    .cadastrogrupo,
+    .grupoencerrado,
+    .infogrupos {
+        width: 100%;
+    }
+
+    .card-salao {
+        padding: 15px;
+    }
+
+    .info-salao h3 {
+        font-size: 20px;
+    }
+
+    .parceiras h2 {
+        font-size: 26px;
+    }
+
+    .titulo-doacao {
+        font-size: 22px;
+    }
+
+    .texto-doacao {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+}
+
 
 
 
@@ -908,6 +1230,104 @@ textarea {
 }
 
 
+
+
+@media (max-width: 1024px) {
+
+    .cardsgrupos {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+        width: 95%;
+    }
+
+    .cardgrupos {
+        max-width: 100%;
+    }
+
+    .conteudocards h3 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .cardsgrupos {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .cardgrupos {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .cardgrupos img {
+        height: 200px;
+    }
+
+    .conteudocards {
+        padding: 18px;
+    }
+
+    .conteudocards h3 {
+        font-size: 22px;
+    }
+
+    .infosgrupo {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .botoescards {
+        flex-direction: column;
+    }
+
+    .cadastrogrupo,
+    .grupoencerrado,
+    .infogrupos {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .cardsgrupos {
+        width: 92%;
+    }
+
+    .cardgrupos img {
+        height: 180px;
+    }
+
+    .conteudocards h3 {
+        font-size: 20px;
+    }
+
+    .taggrupo {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .focogrupo {
+        font-size: 14px;
+    }
+
+    .cadastrogrupo,
+    .grupoencerrado,
+    .infogrupos {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+
+
+
+
+
+
+
+
 .banner-home {
     width: 100%;
     align-items: center;
@@ -922,7 +1342,6 @@ textarea {
     display: block;
 }
 
-/* ---------- SOBRE ---------- */
 
 .sobre-home {
     width: 100%;
@@ -953,7 +1372,7 @@ textarea {
     font-size: 21px;
 }
 
-/* ---------- CLÍNICAS ---------- */
+
 
 .clinicas {
     width: 90%;
@@ -1032,7 +1451,7 @@ textarea {
     font-family: "Jost", sans-serif;
 }
 
-/* ---------- GRUPOS ---------- */
+
 
 .grupos-home {
     width: 90%;
@@ -1045,9 +1464,6 @@ textarea {
     font-size: 35px;
 }
 
-/* usa seus cards já prontos */
-
-/* ---------- NOTÍCIAS ---------- */
 
 .noticias-home {
     width: 90%;
@@ -1109,35 +1525,135 @@ textarea {
     font-weight: 600;
 }
 
-/* ---------- FOOTER ---------- */
+@media (max-width: 1024px) {
 
-footer {
-    margin-top: 80px;
+    .sobre-home {
+        gap: 60px;
+        padding: 50px 30px;
+    }
 
-    background: linear-gradient(90deg,
-            #73D6D3,
-            #8FB9E8,
-            #B189E8,
-            #D98AD9);
+    .logo-sobre img {
+        width: 240px;
+        height: auto;
+    }
 
-    padding: 30px 50px;
+    .texto-sobre p {
+        font-size: 18px;
+    }
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    .conteudo-clinicas {
+        flex-direction: column;
+    }
 
-    color: white;
+    .lista-clinicas {
+        width: 100%;
+    }
+
+    .cards-noticias {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-footer img {
-    width: 70px;
+@media (max-width: 768px) {
+
+    .sobre-home {
+        flex-direction: column;
+        gap: 30px;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .logo-sobre img {
+        width: 200px;
+        height: auto;
+    }
+
+    .texto-sobre {
+        max-width: 100%;
+    }
+
+    .texto-sobre p {
+        font-size: 17px;
+    }
+
+    .clinicas h2,
+    .grupos-home h2,
+    .noticias-home h2 {
+        font-size: 28px;
+    }
+
+    .conteudo-clinicas {
+        flex-direction: column;
+    }
+
+    .mapa iframe {
+        height: 280px;
+    }
+
+    .lista-clinicas {
+        width: 100%;
+    }
+
+    .card-clinica {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .cards-noticias {
+        grid-template-columns: 1fr;
+    }
+
+    .card-noticia img {
+        height: 220px;
+    }
 }
 
-.footer-info {
-    text-align: right;
+@media (max-width: 480px) {
+
+    .logo-sobre img {
+        width: 160px;
+    }
+
+    .texto-sobre p {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .clinicas,
+    .grupos-home,
+    .noticias-home {
+        width: 95%;
+        margin: 50px auto;
+    }
+
+    .clinicas h2,
+    .grupos-home h2,
+    .noticias-home h2 {
+        font-size: 24px;
+    }
+
+    .mapa iframe {
+        height: 220px;
+    }
+
+    .card-noticia img {
+        height: 180px;
+    }
+
+    .conteudo-noticia h3 {
+        font-size: 18px;
+    }
+
+    .conteudo-noticia p {
+        font-size: 14px;
+    }
 }
 
-/* ---------- RESPONSIVO ---------- */
+
+
+
+
 
 @media(max-width:900px) {
 
@@ -1197,7 +1713,6 @@ footer img {
     font-size: 35px;
 }
 
-/* ===== PÁGINA DE DEPOIMENTOS ===== */
 
 .depoimentos-page {
     width: 90%;
@@ -1272,7 +1787,6 @@ footer img {
     width: 220px;
 }
 
-/* título */
 
 .titulo-depoimentos {
     margin: 60px 0 40px;
@@ -1283,7 +1797,6 @@ footer img {
     font-weight: 700;
 }
 
-/* grid */
 
 .lista-depoimentos {
     display: grid;
@@ -1332,7 +1845,6 @@ footer img {
     color: #444;
 }
 
-/* responsivo */
 
 @media(max-width:900px) {
 
@@ -1380,7 +1892,6 @@ footer img {
     margin-top: 4px;
 }
 
-/* GRID */
 
 .grade-painel {
     display: grid;
@@ -1390,7 +1901,6 @@ footer img {
     margin: 0 auto;
 }
 
-/* CARDS */
 
 .card {
     background: white;
@@ -1412,7 +1922,6 @@ footer img {
     margin-bottom: 20px;
 }
 
-/* HUMOR */
 
 .humor {
     display: flex;
@@ -1421,6 +1930,7 @@ footer img {
     gap: 18px;
     margin-top: 20px;
 }
+
 .opcao-humor {
     display: flex;
     flex-direction: column;
@@ -1506,7 +2016,6 @@ footer img {
     background: #f5eeff;
 }
 
-/* REFEIÇÕES */
 
 .refeicoes {
     display: flex;
@@ -1556,7 +2065,6 @@ footer img {
     line-height: 1.4;
 }
 
-/* DICAS */
 
 .dicas {
     display: flex;
@@ -1595,7 +2103,6 @@ footer img {
     line-height: 1.4;
 }
 
-/* CONSULTAS */
 
 .card-consultas {
     grid-column: 1 / -1;
@@ -1680,7 +2187,6 @@ footer img {
     color: #999;
 }
 
-/* CABEÇALHO DOS CARDS */
 
 .cabecalho-card {
     display: flex;
@@ -1693,14 +2199,12 @@ footer img {
     font-size: 20px;
 }
 
-/* ÍCONES GOOGLE */
 
 .material-symbols-outlined {
     color: #B189E8;
     font-size: 20px;
 }
 
-/* RESPONSIVO */
 
 @media (max-width: 768px) {
 
@@ -1722,7 +2226,6 @@ footer img {
 }
 
 
-/* ===== GRUPOS DE APOIO ===== */
 
 .apoio-section {
     width: 90%;
@@ -1794,7 +2297,6 @@ footer img {
     padding: 14px 28px;
 }
 
-/* RESPONSIVO */
 
 @media (max-width: 900px) {
 
@@ -1833,6 +2335,7 @@ footer img {
     color: #7a4ad9;
     font-weight: 600;
 }
+
 .sintoma:hover,
 .sintoma.ativo {
     border-color: #B189E8;
@@ -1925,11 +2428,17 @@ footer img {
 .modal {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,.45);
+
+    background: rgba(0, 0, 0, .45);
 
     display: none;
     justify-content: center;
-    align-items: center;
+
+    align-items: flex-start;
+
+    overflow-y: auto;
+
+    padding: 30px 15px;
 
     z-index: 9999;
 }
@@ -1947,20 +2456,22 @@ footer img {
 
     overflow: hidden;
 
-    box-shadow: 0 20px 40px rgba(0,0,0,.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .2);
 
     animation: aparecer .3s ease;
+   
+    max-height: calc(100vh - 60px);
+
+    overflow-y: auto;
 }
 
 .modal-topo {
     height: 110px;
 
-    background: linear-gradient(
-        90deg,
-        #d786df,
-        #a9cfff,
-        #9ee7e4
-    );
+    background: linear-gradient(90deg,
+            #d786df,
+            #a9cfff,
+            #9ee7e4);
 
     display: flex;
     align-items: center;
@@ -2034,8 +2545,96 @@ footer img {
         transform: scale(.9);
         opacity: 0;
     }
+
     to {
         transform: scale(1);
         opacity: 1;
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    .modal-conteudo {
+        width: 95%;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .modal-topo {
+        height: 90px;
+    }
+
+    .modal-topo h2 {
+        font-size: 30px;
+        text-align: center;
+    }
+
+    .fechar-modal {
+        left: 15px;
+        font-size: 28px;
+    }
+
+    .modal-corpo {
+        padding: 25px;
+    }
+
+    .modal-corpo h3 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .modal-dados {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .modal-texto {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .modal-corpo ul {
+        padding-left: 20px;
+        line-height: 1.7;
+    }
+
+    .modal-corpo h4 {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .modal-topo {
+        height: 80px;
+    }
+
+    .modal-topo h2 {
+        font-size: 24px;
+    }
+
+    .modal-corpo {
+        padding: 20px;
+    }
+
+    .modal-corpo h3 {
+        font-size: 20px;
+    }
+
+    .modal-texto,
+    .modal-corpo ul {
+        font-size: 14px;
+    }
+
+    .modal-corpo img {
+        width: 70px;
+    }
+
+    .fechar-modal {
+        font-size: 24px;
+        left: 12px;
     }
 }
