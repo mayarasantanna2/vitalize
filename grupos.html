@@ -231,7 +231,7 @@
         </div>
 
     </section>
-    
+
     <footer class="footer">
 
         <div class="footer-redes">
@@ -252,6 +252,78 @@
         </div>
 
     </footer>
+
+    <div class="modal" id="modalInfo">
+
+        <div class="modal-conteudo">
+
+            <div class="modal-topo">
+                <button class="fechar-modal">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <h2>Mais Informações</h2>
+            </div>
+
+            <div class="modal-corpo">
+                <h2 class="h2titulo">Jovens em Movimento</h2>
+                <h3>Foco: Jovens em tratamento oncológico </h3>
+
+                <div class="modal-dados">
+                    <span>18h – Horário de Brasília</span>
+                    <span>10/07/2026</span>
+                </div>
+
+                <p class="modal-texto">
+                    Os Grupos de Apoio Online são gratuitos e destinados a pessoas em tratamento contra o câncer, além
+                    de familiares, amigos e cuidadores.
+                </p>
+
+                <ul>
+                    <li>Os encontros oferecem um espaço de acolhimento, escuta e apoio emocional.</li>
+                    <li>Para participar basta realizar sua inscrição gratuitamente.</li>
+                    <li>O link de acesso será enviado para o e-mail cadastrado.</li>
+                    <li>Caso não encontre o e-mail, verifique também as pastas de spam ou lixo eletrônico.</li>
+                    <li>As inscrições serão encerradas quando a data limite for atingida.</li>
+                    <li>Em caso de dúvidas, entre em contato pelo e-mail: suporte@vitalize.com.br</li>
+                </ul>
+
+                <h4>
+                    Esperamos você para juntos construirmos uma rede de apoio, cuidado e esperança!
+                </h4>
+
+                <img src="img/logov.png" alt="">
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const modal = document.getElementById("modalInfo");
+
+        document.querySelectorAll(".infogrupos").forEach(botao => {
+
+            botao.addEventListener("click", () => {
+                modal.classList.add("ativo");
+            });
+
+        });
+
+        document.querySelector(".fechar-modal").addEventListener("click", () => {
+            modal.classList.remove("ativo");
+        });
+
+        modal.addEventListener("click", (e) => {
+
+            if (e.target === modal) {
+                modal.classList.remove("ativo");
+            }
+
+        });
+
+    </script>
 
 </body>
 

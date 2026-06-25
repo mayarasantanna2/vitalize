@@ -1921,3 +1921,121 @@ footer img {
         text-align: center;
     }
 }
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+}
+
+.modal.ativo {
+    display: flex;
+}
+
+.modal-conteudo {
+    width: 90%;
+    max-width: 720px;
+
+    background: #f8eeee;
+    border-radius: 25px;
+
+    overflow: hidden;
+
+    box-shadow: 0 20px 40px rgba(0,0,0,.2);
+
+    animation: aparecer .3s ease;
+}
+
+.modal-topo {
+    height: 110px;
+
+    background: linear-gradient(
+        90deg,
+        #d786df,
+        #a9cfff,
+        #9ee7e4
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+.modal-topo h2 {
+    color: white;
+    font-size: 42px;
+    font-weight: 700;
+}
+
+.fechar-modal {
+    position: absolute;
+    left: 25px;
+
+    border: none;
+    background: none;
+
+    color: white;
+    font-size: 32px;
+
+    cursor: pointer;
+}
+
+.modal-corpo {
+    padding: 40px;
+}
+
+.modal-corpo h3 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.modal-dados {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 35px;
+    font-weight: 600;
+}
+
+.modal-texto {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    line-height: 1.8;
+}
+
+.modal-corpo ul {
+    line-height: 1.9;
+    margin-bottom: 40px;
+}
+
+.modal-corpo h4 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.modal-corpo img {
+    display: block;
+    width: 90px;
+    margin: auto;
+}
+
+@keyframes aparecer {
+    from {
+        transform: scale(.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
