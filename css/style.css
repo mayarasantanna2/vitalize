@@ -224,11 +224,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+     margin-top: -130px;
 
     background: linear-gradient(90deg,
             #9ed9de,
             #b7c7e6,
             #d39ad8);
+            
 }
 
 .cadastro-card {
@@ -247,6 +249,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: -130px;
 
     background: linear-gradient(90deg,
             #9ed9de,
