@@ -220,7 +220,17 @@
             <div class="card card-consultas">
 
                 <div class="cabecalho-card">
-                    <h3>Próximas consultas e exames</h3>
+
+                    <div>
+                        <h3>Próximas consultas e exames</h3>
+                        <p class="subtitulo">Acompanhe seus próximos compromissos.</p>
+                    </div>
+
+                    <button id="abrirAgenda" class="btn-agenda">
+                        <i class="fa-solid fa-calendar-plus"></i>
+                        Gerenciar
+                    </button>
+
                 </div>
 
                 <div class="consultas">
@@ -239,7 +249,7 @@
 
                         <div class="horario-consulta">
                             <strong>10:00</strong>
-                            <span>Terça-feira</span>
+                            <span>Hospital São Lucas</span>
                         </div>
 
                     </div>
@@ -252,13 +262,13 @@
                         </div>
 
                         <div class="info-consulta">
-                            <h4>Exame de sangue</h4>
-                            <p>Hemograma completo</p>
+                            <h4>Exame de Sangue</h4>
+                            <p>Dr. João Nascimento</p>
                         </div>
 
                         <div class="horario-consulta">
                             <strong>08:00</strong>
-                            <span>Quinta-feira</span>
+                            <span>Laboratório Delboni</span>
                         </div>
 
                     </div>
@@ -266,9 +276,7 @@
                 </div>
 
             </div>
-
         </div>
-
     </div>
 
     <footer class="footer">
@@ -292,6 +300,272 @@
 
     </footer>
 
+    <div class="modal" id="modalAgenda">
+
+        <div class="modal-conteudo agenda">
+
+            <div class="modal-topo">
+
+                <button class="fechar-modal" id="fecharAgenda">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <h2 id="tituloFormulario">
+                    Gerenciar Agenda
+                </h2>
+
+            </div>
+
+
+            <!-- LISTA -->
+
+            <div id="listaAgenda">
+
+                <button class="btn-novo" id="novoItem">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Nova consulta ou exame
+
+                </button>
+
+
+                <div class="item-agenda">
+
+                    <div class="dados-agenda">
+
+                        <h4>Consulta com Oncologista</h4>
+
+                        <p>20/05/2026 • 10:00</p>
+
+                        <span>Hospital São Lucas</span>
+
+                    </div>
+
+                    <div class="acoes">
+
+                        <button class="editar">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+
+                        <button class="excluir">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="item-agenda">
+
+                    <div class="dados-agenda">
+
+                        <h4>Exame de Sangue</h4>
+
+                        <p>05/06/2026 • 08:00</p>
+
+                        <span>Laboratório Delboni</span>
+
+                    </div>
+
+                    <div class="acoes">
+
+                        <button class="editar">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+
+                        <button class="excluir">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FORM -->
+
+            <form id="formAgenda" class="form-consulta" style="display:none;">
+
+                <div class="campo">
+
+                    <label>Tipo</label>
+
+                    <select>
+
+                        <option>Consulta</option>
+                        <option>Exame</option>
+
+                    </select>
+
+                </div>
+
+                <div class="campo">
+
+                    <label>Especialidade</label>
+
+                    <input type="text" placeholder="Ex.: Oncologista">
+
+                </div>
+
+                <div class="campo">
+
+                    <label>Médico</label>
+
+                    <input type="text" placeholder="Nome do médico">
+
+                </div>
+
+                <div class="campo">
+
+                    <label>Local</label>
+
+                    <input type="text" placeholder="Hospital ou clínica">
+
+                </div>
+
+                <div class="campo">
+
+                    <label>Data</label>
+
+                    <input type="date">
+
+                </div>
+
+                <div class="campo">
+
+                    <label>Horário</label>
+
+                    <input type="time">
+
+                </div>
+
+                <div class="botoes-modal">
+
+                    <button type="button" id="cancelarEdicao" class="btn-cancelar">
+                        Cancelar
+                    </button>
+
+                    <button type="button" id="salvarAgenda" class="btn-salvar">
+                        Salvar
+                    </button>
+
+                </div>
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const modal = document.getElementById("modalAgenda");
+
+        const lista = document.getElementById("listaAgenda");
+
+        const formulario = document.getElementById("formAgenda");
+
+        const titulo = document.getElementById("tituloFormulario");
+        function voltarInicioModal() {
+
+            formulario.style.display = "none";
+            lista.style.display = "block";
+
+            titulo.innerHTML = "Gerenciar Agenda";
+
+        }
+        document.getElementById("abrirAgenda").onclick = () => {
+            modal.classList.add("ativo");
+            document.body.style.overflow = "hidden";
+        };
+
+        document.querySelector(".fechar-modal").onclick = () => {
+
+            if (formulario.style.display === "block") {
+
+                voltarInicioModal();
+
+            } else {
+
+                modal.classList.remove("ativo");
+                document.body.style.overflow = "auto";
+
+            }
+
+        };
+
+        modal.onclick = (e) => {
+
+            if (e.target === modal) {
+
+                modal.classList.remove("ativo");
+                document.body.style.overflow = "auto";
+
+            }
+
+        };
+
+        // NOVO
+        document.getElementById("novoItem").onclick = () => {
+
+            titulo.innerHTML = "Nova consulta";
+
+            lista.style.display = "none";
+            formulario.style.display = "block";
+        };
+
+        // EDITAR
+        document.querySelectorAll(".editar").forEach(botao => {
+
+            botao.onclick = () => {
+
+                titulo.innerHTML = "Editar consulta";
+
+                lista.style.display = "none";
+                formulario.style.display = "block";
+
+                // depois aqui você preencherá os campos com os dados vindos do banco
+            }
+
+        });
+
+        // CANCELAR
+        document.getElementById("cancelarEdicao").onclick = () => {
+
+            voltarInicioModal();
+
+        };
+        // SALVAR
+        document.getElementById("salvarAgenda").onclick = () => {
+
+            alert("Consulta salva!");
+
+            voltarInicioModal();
+
+        };
+
+        // EXCLUIR
+        document.querySelectorAll(".excluir").forEach(botao => {
+
+            botao.onclick = () => {
+
+                if (confirm("Deseja excluir esta consulta?")) {
+
+                    botao.closest(".item-agenda").remove();
+
+                }
+
+            }
+
+        });
+    </script>
     <script>
         // Humor: seleção única
         document.querySelectorAll('.opcao-humor').forEach(btn => {

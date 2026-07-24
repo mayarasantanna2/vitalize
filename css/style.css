@@ -2669,3 +2669,242 @@ _ .categoria-refeicao {
         left: 12px;
     }
 }
+
+
+
+.modal-conteudo.agenda{
+    width:720px;
+    max-width:95%;
+    border-radius:20px;
+    padding:0;
+    overflow:hidden;
+}
+
+.modal-topo{
+    background:#8b7cf5;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:22px 28px;
+}
+
+.modal-topo h2{
+    font-size:25px;
+    font-weight:600;
+}
+
+#listaAgenda{
+    padding:30px;
+}
+
+.btn-novo{
+    width:100%;
+    border:none;
+    border-radius:12px;
+    background:#8b7cf5;
+    color:#fff;
+    padding:15px;
+    font-size:16px;
+    cursor:pointer;
+    margin-bottom:25px;
+}
+
+.item-agenda{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:#fafafa;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    margin-bottom:18px;
+
+    border:1px solid #ececec;
+}
+
+.item-agenda h4{
+    margin-bottom:6px;
+    font-size:18px;
+}
+
+.item-agenda p{
+    margin:4px 0;
+    color:#666;
+}
+
+.item-agenda span{
+    color:#8b7cf5;
+    font-size:14px;
+}
+
+.acoes{
+    display:flex;
+    gap:12px;
+}
+
+.acoes button{
+
+    width:42px;
+    height:42px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:17px;
+}
+
+.editar{
+    background:#ece8ff;
+    color:#6d55f3;
+}
+
+.excluir{
+    background:#ffe8e8;
+    color:#e14d4d;
+}
+
+.form-consulta{
+
+    padding:30px;
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:20px;
+}
+
+.campo{
+
+    display:flex;
+
+    flex-direction:column;
+
+    flex:1 1 47%;
+}
+
+.campo.full{
+    flex:1 1 100%;
+}
+
+.campo label{
+    margin-bottom:8px;
+    font-weight:600;
+}
+
+.campo input,
+.campo select,
+.campo textarea{
+
+    padding:13px 15px;
+
+    border-radius:12px;
+
+    border:1px solid #ddd;
+
+    font-size:15px;
+}
+
+.campo textarea{
+    min-height:120px;
+    resize:none;
+}
+
+.botoes-modal {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.botoes-modal button {
+    flex: 1;
+}
+.btn-cancelar{
+
+    padding:13px 25px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#ececec;
+
+    cursor:pointer;
+}
+
+.btn-salvar{
+
+    padding:13px 25px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#8b7cf5;
+
+    color:white;
+
+    cursor:pointer;
+}
+
+.btn-agenda{
+
+    background:#8b7cf5;
+
+    color:white;
+
+    border:none;
+
+    padding:10px 18px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+}
+
+.cabecalho-card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+}
+.modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.modal.ativo {
+    display: flex;
+}
+
+.modal-conteudo.agenda {
+    width: 800px;
+    max-width: 95%;
+    max-height: 85vh;
+    overflow-y: auto;
+    border-radius: 20px;
+}
