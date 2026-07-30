@@ -20,13 +20,13 @@ if ($titulo === '' || $conteudo === '') {
     exit();
 }
 
-$sql = "INSERT INTO relatos (id_usuario, titulo, relato, status, data_publicacao, anonimo)
-VALUES (:id_usuario, :titulo, :relato, 'pendente', NOW(), :anonimo)";
+$sql = "INSERT INTO relatos (id_usuario, titulo, conteudo, data_publicacao, anonimo)
+VALUES (:id_usuario, :titulo, :conteudo, NOW(), :anonimo)";
 
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
 $stmt->bindParam(':titulo', $titulo);
-$stmt->bindParam(':relato', $conteudo);
+$stmt->bindParam(':conteudo', $conteudo);
 $stmt->bindParam(':anonimo', $anonimo, PDO::PARAM_INT);
 $stmt->execute();
 

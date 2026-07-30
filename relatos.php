@@ -3,11 +3,16 @@ session_start();
 require_once 'conexao.php';
 
 try {
-    $sql = "SELECT r.titulo, r.relato AS conteudo, r.data_publicacao, r.anonimo, u.nome
-            FROM relatos r
-            LEFT JOIN usuarios u ON u.id_usuario = r.id_usuario
-            WHERE r.status = 'aprovado' OR r.status = 'pendente'
-            ORDER BY r.data_publicacao DESC";
+   $sql = "SELECT
+            r.titulo,
+            r.conteudo,
+            r.data_publicacao,
+            r.anonimo,
+            u.nome
+        FROM relatos r
+        LEFT JOIN usuarios u
+            ON u.id_usuario = r.id_usuario
+        ORDER BY r.data_publicacao DESC";
     $stmt = $pdo->query($sql);
     $relatos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
