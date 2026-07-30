@@ -1,3 +1,6 @@
+<?php 
+    require_once 'conexao.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +24,7 @@
     <div class="login-page">
         <div class="login-card">
 
-            <a href="index.html" class="login-btn-voltar">
+            <a href="index.php" class="login-btn-voltar">
                 <span class="material-symbols-outlined">
                     arrow_back_ios_new
                 </span>
@@ -31,15 +34,15 @@
 
             <h1 class="login-titulo">Login</h1>
 
-            <form class="login-form">
+            <form class="login-form" method="POST" action="processos/processalogin.php">
                 <label>Email:</label>
-                <input type="email" class="login-input">
+                <input type="email" class="login-input" name="email">
 
                 <label>Senha:</label>
-                <input type="password" class="login-input">
+                <input type="password" class="login-input" name="senha">
 
                 <button class="login-btn">ENTRAR</button>
-                <p class="subcadastro">Não possui uma conta? <a class="sublink" href="cadastro.html">Cadastre-se</a>
+                <p class="subcadastro">Não possui uma conta? <a class="sublink" href="cadastro.php">Cadastre-se</a>
                 </p>
 
 

@@ -1,3 +1,6 @@
+<?php 
+    require_once 'conexao.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +23,7 @@
     <div class="cadastro-page">
         <div class="cadastro-card">
 
-            <a href="index.html" class="login-btn-voltar">
+            <a href="index.php" class="login-btn-voltar">
                 <span class="material-symbols-outlined">
                     arrow_back_ios_new
                 </span>
@@ -30,26 +33,28 @@
 
             <h1 class="login-titulo">Cadastre-Se</h1>
 
-            <form action="login.html" class="login-form">
+            <form action="processos/cadastrar.php" class="login-form" method="post">
                 <label>Nome:</label>
-                <input type="text" class="login-input">
+                <input type="text" class="login-input" name="nome">
+
+                <label>Sobrenome:</label>
+                <input type="text" class="login-input" name="sobrenome">
 
                 <label>Email:</label>
-                <input type="email" class="login-input">
+                <input type="email" class="login-input" name="email">
 
                 <label>Telefone:</label>
-                <input type="tel" class="login-input">
-
+                <input type="tel" class="login-input" name="telefone">
 
                 <label>Crie uma Senha:</label>
-                <input type="password" class="login-input">
+                <input type="password" class="login-input" name="senha">
 
                 <label>Repita a Senha:</label>
-                <input type="password" class="login-input">
+                <input type="password" class="login-input" name="confirmar_senha"   >
 
                 <button class="login-btn">Cadastrar</button>
 
-                <p class="subcadastro">Já tem uma conta? <a class="sublink" href="login.html">Clique Aqui</a> </p>
+                <p class="subcadastro">Já tem uma conta? <a class="sublink" href="login.php">Clique Aqui</a> </p>
 
             </form>
 

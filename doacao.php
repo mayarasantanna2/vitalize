@@ -24,15 +24,15 @@
 
         <div class="nav-bar">
             <ul class="menu">
-                <li><a href="index.html">Início</a></li>
-                <li><a href="sobregrupos.html">Grupos</a></li>
-                <li><a href="doacao.html">Doação</a></li>
-                <li><a href="saude.html">Saúde</a></li>
-                <li><a href="relatos.html">Relatos</a></li>
-                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="index.php">Início</a></li>
+                <li><a href="sobregrupos.php">Grupos</a></li>
+                <li><a href="doacao.php">Doação</a></li>
+                <li><a href="saude.php">Saúde</a></li>
+                <li><a href="relatos.php">Relatos</a></li>
+                <li><a href="sobre.php">Sobre</a></li>
             </ul>
 
-            <a href="login.html" class="btnav">Entrar</a>
+            <a href="login.php" class="btnav">Entrar</a>
              <button class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </button>
