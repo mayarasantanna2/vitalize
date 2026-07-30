@@ -16,6 +16,7 @@ session_start();
     <link rel="icon" type="image/png" href="img/logov.png">
 
     <link rel="stylesheet" href="css/style.css">
+    <script src="css/style.css"></script>
 </head>
 
 <body>
@@ -36,7 +37,7 @@ session_start();
             </ul>
 
             <a href="login.php" class="btnav">Entrar</a>
-             <button class="menu-toggle">
+            <button class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -66,14 +67,26 @@ session_start();
             <?php unset($_SESSION['erro_grupo']); ?>
         <?php endif; ?>
 
-        <form action="processos/cadastrargrupo.php" method="post" class="login-form">
+        <form action="processos/cadastrargrupo.php"
+            method="post" class="login-form"
+            enctype="multipart/form-data">
             <div class="container-grupo">
 
                 <div class="upload-cx">
-                    <span>+</span>
-                    <p>INSIRA UMA<br>IMAGEM AQUI</p>
-                </div>
 
+                    <input
+                        type="file"
+                        id="imagem"
+                        name="imagem"
+                        accept="image/png, image/jpeg, image/webp"
+                        hidden>
+                    <label for="imagem" class="btn-upload">+</label>
+
+                    <img id="preview" style="display:none;">
+
+                    <p id="texto">INSIRA UMA<br>IMAGEM AQUI</p>
+
+                </div>
                 <div class="dados-grupo">
 
                     <h2>Dados do Grupo</h2>
