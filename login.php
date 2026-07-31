@@ -42,7 +42,8 @@
                 <input type="password" class="login-input" name="senha">
 
                 <button class="login-btn">ENTRAR</button>
-                <p class="subcadastro">Não possui uma conta? <a class="sublink" href="cadastro.php">Cadastre-se</a>
+                <p class="subcadastro">Não possui uma conta? <a class="sublink" href="cadastro.php">Cadastre-se</a> <br>
+                 <a class="sublink" href="">Esqueci minha senha</a>
                 </p>
 
 

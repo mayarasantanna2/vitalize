@@ -30,6 +30,8 @@
                 <li><a href="saude.php">Saúde</a></li>
                 <li><a href="relatos.php">Relatos</a></li>
                 <li><a href="sobre.php">Sobre</a></li>
+                <li><a href="pagperfil.php">teste</a></li>
+                
             </ul>
 
             <a href="login.php" class="btnav">Entrar</a>
