@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +37,11 @@
                 
             </ul>
 
-            <a href="login.php" class="btnav">Entrar</a>
+            <?php if (!empty($_SESSION['id_usuario'])): ?>
+                <a href="pagperfil.php" class="btnav">Perfil</a>
+            <?php else: ?>
+                <a href="login.php" class="btnav">Entrar</a>
+            <?php endif; ?>
              <button class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </button>

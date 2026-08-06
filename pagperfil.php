@@ -1,3 +1,33 @@
+<?php
+session_start();
+
+require_once __DIR__ . '/conexao.php';
+
+if (empty($_SESSION['id_usuario'])) {
+    header('Location: login.php');
+    exit();
+}
+
+$id_usuario = (int) $_SESSION['id_usuario'];
+
+$sql = "SELECT id_usuario, nome, email, sobrenome, telefone FROM usuarios WHERE id_usuario = :id_usuario";
+$stmt = $pdo->prepare($sql);
+$stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+$stmt->execute();
+
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$usuario) {
+    session_destroy();
+    header('Location: login.php');
+    exit();
+}
+
+$nome = $usuario['nome'] ?? '';
+$email = $usuario['email'] ?? '';
+$sobrenome = $usuario['sobrenome'] ?? '';
+$telefone = $usuario['telefone'] ?? '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +42,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="icon" type="image/png" href="img/logov.png">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/vitalize/css/style.css?v=3">
 </head>
 
 <body>
@@ -30,11 +60,15 @@
                 <li><a href="saude.php">Saúde</a></li>
                 <li><a href="relatos.php">Relatos</a></li>
                 <li><a href="sobre.php">Sobre</a></li>
-                <li><a href="grupos2.php">teste</a></li>
+                <li><a href="grupos.php">teste</a></li>
 
             </ul>
 
-            <a href="login.php" class="btnav">Entrar</a>
+            <?php if (!empty($_SESSION['id_usuario'])): ?>
+                <a href="pagperfil.php" class="btnav">Perfil</a>
+            <?php else: ?>
+                <a href="login.php" class="btnav">Entrar</a>
+            <?php endif; ?>
             <button class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </button>
@@ -67,14 +101,26 @@
 
                 <div class="perfil-nome">
 
-                    <h2>Mayara Sant' Anna</h2>
+                    <h2><?php echo htmlspecialchars($nome ?: 'Usuário'); ?></h2>
 
                 </div>
 
-                <button id="abrirPerfil" class="btn-agenda">
-                    <i class="fa-solid fa-pen"></i>
-                    Alterar dados
-                </button>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <button id="abrirPerfil" class="btn-agenda">
+                        <i class="fa-solid fa-pen"></i>
+                        Alterar dados
+                    </button>
+                    <a href="processos/processalogout.php" class="btn-agenda" style="text-decoration:none; background:#d9534f; display:inline-flex; align-items:center; gap:8px;">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Sair</span>
+                    </a>
+                    <form method="POST" action="processos/deletarperfil.php" onsubmit="return confirm('Tem certeza que deseja excluir sua conta?');" style="margin:0;">
+                        <button type="submit" class="btn-agenda" style="background:#b91c1c; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
+                            <i class="fa-solid fa-trash"></i>
+                            <span>Excluir conta</span>
+                        </button>
+                    </form>
+                </div>
 
             </div>
 
@@ -82,22 +128,22 @@
 
                 <div class="info">
                     <span>Nome</span>
-                    <strong>Mayara</strong>
+                    <strong><?php echo htmlspecialchars($nome ?: 'Não informado'); ?></strong>
                 </div>
 
                 <div class="info">
                     <span>Sobrenome</span>
-                    <strong>Nascimento</strong>
+                    <strong><?php echo htmlspecialchars(!empty($sobrenome) ? $sobrenome : 'Não informado'); ?></strong>
                 </div>
 
                 <div class="info">
                     <span>Email</span>
-                    <strong>mayara@gmail.com</strong>
+                    <strong><?php echo htmlspecialchars($email ?: 'Não informado'); ?></strong>
                 </div>
 
                 <div class="info">
                     <span>Telefone</span>
-                    <strong>(11) 94002-8922</strong>
+                    <strong><?php echo htmlspecialchars(!empty($telefone) ? $telefone : 'Não informado'); ?></strong>
                 </div>
 
             </div>
@@ -142,7 +188,7 @@
 
         </div>
 
-        <form id="formPerfil" class="form-consulta">
+        <form id="formPerfil" class="form-consulta" method="POST" action="processos/atualizaperfil.php">
 
             <div class="campo full">
 
@@ -154,32 +200,32 @@
 
             <div class="campo">
                 <label>Nome</label>
-                <input type="text" value="Mayara">
+                <input type="text" name="nome" value="<?php echo htmlspecialchars($nome); ?>">
             </div>
 
             <div class="campo">
                 <label>Sobrenome</label>
-                <input type="text" value="Sant'Anna">
+                <input type="text" name="sobrenome" value="<?php echo htmlspecialchars($sobrenome); ?>">
             </div>
 
             <div class="campo">
                 <label>Email</label>
-                <input type="email" value="mayara@email.com">
+                <input type="email" name="email" value="<?php echo htmlspecialchars($email); ?>">
             </div>
 
             <div class="campo">
                 <label>Telefone</label>
-                <input type="tel" value="11999999999">
+                <input type="tel" name="telefone" value="<?php echo htmlspecialchars($telefone); ?>">
             </div>
 
             <div class="campo">
                 <label>Nova senha</label>
-                <input type="password">
+                <input type="password" name="senha">
             </div>
 
             <div class="campo">
                 <label>Confirmar senha</label>
-                <input type="password">
+                <input type="password" name="confirmar_senha">
             </div>
 
             <div class="botoes-modal">

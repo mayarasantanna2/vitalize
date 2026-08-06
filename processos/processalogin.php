@@ -27,7 +27,9 @@ $sql = "SELECT
             id_usuario,
             nome,
             email,
-            senha
+            senha,
+            sobrenome,
+            telefone
         FROM usuarios
         WHERE email = :email";
 
@@ -63,6 +65,8 @@ if (!password_verify($senha, $usuario['senha'])) {
 $_SESSION['id_usuario'] = $usuario['id_usuario'];
 $_SESSION['nome'] = $usuario['nome'];
 $_SESSION['email'] = $usuario['email'];
+$_SESSION['sobrenome'] = $usuario['sobrenome'] ?? '';
+$_SESSION['telefone'] = $usuario['telefone'] ?? '';
 
 // Redirecionar para a área restrita
 header("Location: ../perfil.php");
