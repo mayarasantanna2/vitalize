@@ -5,10 +5,11 @@ require_once 'conexao.php';
 try {
    $sql = "SELECT
             r.titulo,
-            r.conteudo,
+            r.relato AS conteudo,
             r.data_publicacao,
             r.anonimo,
-            u.nome
+            u.nome,
+            u.foto_perfil
         FROM relatos r
         LEFT JOIN usuarios u
             ON u.id_usuario = r.id_usuario
@@ -54,7 +55,7 @@ try {
                 <li><a href="sobre.php">Sobre</a></li>
             </ul>
 
-            <?php session_start(); if (!empty($_SESSION['id_usuario'])): ?>
+            <?php if (!empty($_SESSION['id_usuario'])): ?>
                 <a href="pagperfil.php" class="btnav">Perfil</a>
             <?php else: ?>
                 <a href="login.php" class="btnav">Entrar</a>
@@ -128,7 +129,13 @@ try {
 
     <div class="cabecalho-depoimento">
 
-        <div class="avatar"></div>
+        <div class="avatar">
+            <?php if (!$relato['anonimo'] && !empty($relato['foto_perfil'])): ?>
+                <img src="<?= htmlspecialchars($relato['foto_perfil']) ?>" alt="Foto de perfil">
+            <?php else: ?>
+                <span class="avatar-placeholder"><i class="fa-solid fa-user"></i></span>
+            <?php endif; ?>
+        </div>
 
         <div>
 

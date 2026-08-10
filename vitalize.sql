@@ -38,7 +38,8 @@ CREATE TABLE `grupos` (
   `data_encontro` date DEFAULT NULL,
   `horario` datetime DEFAULT NULL,
   `link` varchar(150) DEFAULT NULL,
-  `contato` varchar(150) DEFAULT NULL
+  `contato` varchar(150) DEFAULT NULL,
+  `imagem` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------

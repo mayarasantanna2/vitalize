@@ -29,7 +29,8 @@ $sql = "SELECT
             email,
             senha,
             sobrenome,
-            telefone
+            telefone,
+            foto_perfil
         FROM usuarios
         WHERE email = :email";
 
@@ -67,9 +68,10 @@ $_SESSION['nome'] = $usuario['nome'];
 $_SESSION['email'] = $usuario['email'];
 $_SESSION['sobrenome'] = $usuario['sobrenome'] ?? '';
 $_SESSION['telefone'] = $usuario['telefone'] ?? '';
+$_SESSION['foto_perfil'] = $usuario['foto_perfil'] ?? '';
 
 // Redirecionar para a área restrita
-header("Location: ../perfil.php");
+header("Location: ../pagperfil.php");
 exit();
 
 ?>

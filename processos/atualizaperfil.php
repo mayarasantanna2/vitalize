@@ -2,6 +2,7 @@
 session_start();
 
 require_once __DIR__ . '/../conexao.php';
+require_once __DIR__ . '/upload_helper.php';
 
 if (empty($_SESSION['id_usuario'])) {
     header('Location: ../login.php');
@@ -42,6 +43,12 @@ if ($stmt_verifica->rowCount() > 0) {
 
 $sql = "UPDATE usuarios SET nome = :nome, sobrenome = :sobrenome, email = :email, telefone = :telefone";
 
+$foto_perfil_path = null;
+if (!empty($_FILES['foto_perfil']['name'])) {
+    $foto_perfil_path = salvar_arquivo_upload($_FILES['foto_perfil'], 'usuarios');
+    $sql .= ", foto_perfil = :foto_perfil";
+}
+
 if ($senha !== '') {
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
     $sql .= ", senha = :senha";
@@ -59,6 +66,10 @@ if ($senha !== '') {
     $stmt->bindParam(':senha', $senha_hash);
 }
 
+if ($foto_perfil_path !== null) {
+    $stmt->bindParam(':foto_perfil', $foto_perfil_path);
+}
+
 $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
 
 if ($stmt->execute()) {
@@ -66,6 +77,10 @@ if ($stmt->execute()) {
     $_SESSION['email'] = $email;
     $_SESSION['sobrenome'] = $sobrenome;
     $_SESSION['telefone'] = $telefone;
+
+    if ($foto_perfil_path !== null) {
+        $_SESSION['foto_perfil'] = $foto_perfil_path;
+    }
 
     $_SESSION['sucesso_perfil'] = 'Dados atualizados com sucesso.';
     header('Location: ../pagperfil.php');

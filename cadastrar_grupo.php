@@ -36,7 +36,7 @@ session_start();
                 <li><a href="sobre.php">Sobre</a></li>
             </ul>
 
-            <?php session_start(); if (!empty($_SESSION['id_usuario'])): ?>
+            <?php if (!empty($_SESSION['id_usuario'])): ?>
                 <a href="pagperfil.php" class="btnav">Perfil</a>
             <?php else: ?>
                 <a href="login.php" class="btnav">Entrar</a>

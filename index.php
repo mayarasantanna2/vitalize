@@ -33,8 +33,6 @@ session_start();
                 <li><a href="saude.php">Saúde</a></li>
                 <li><a href="relatos.php">Relatos</a></li>
                 <li><a href="sobre.php">Sobre</a></li>
-                <li><a href="pagperfil.php">teste</a></li>
-                
             </ul>
 
             <?php if (!empty($_SESSION['id_usuario'])): ?>
@@ -42,7 +40,7 @@ session_start();
             <?php else: ?>
                 <a href="login.php" class="btnav">Entrar</a>
             <?php endif; ?>
-             <button class="menu-toggle">
+            <button class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -218,9 +216,9 @@ session_start();
             <a href="sobregrupos.php" class="adecorado">Saiba Mais</a>
         </div>
 
+    </section>
 
-
-        <section class="noticias-home">
+    <section class="noticias-home">
 
             <h2 class="h2titulo">Fique por dentro</h2>
 
@@ -275,10 +273,9 @@ session_start();
 
             </div>
 
-        </section>
+    </section>
 
-
-        <footer class="footer">
+    <footer class="footer">
 
             <div class="footer-redes">
                 <a href="#"><i class="fab fa-instagram"></i></a>

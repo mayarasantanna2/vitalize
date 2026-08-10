@@ -1,3 +1,12 @@
+<?php
+session_start();
+require_once __DIR__ . '/conexao.php';
+
+$sql = "SELECT id_grupo, nome_grupo, mais_info, foco, data_encontro, horario, link, telefone_grupo, imagem FROM grupos ORDER BY id_grupo DESC";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$grupos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +41,7 @@
                 <li><a href="sobre.php">Sobre</a></li>
             </ul>
 
-            <?php session_start(); if (!empty($_SESSION['id_usuario'])): ?>
+            <?php if (!empty($_SESSION['id_usuario'])): ?>
                 <a href="pagperfil.php" class="btnav">Perfil</a>
             <?php else: ?>
                 <a href="login.php" class="btnav">Entrar</a>
@@ -52,188 +61,43 @@
         <div class="linha"></div>
 
         <div class="cardsgrupos">
+            <?php if (empty($grupos)): ?>
+                <p style="width:100%; text-align:center; color:#666;">Nenhum grupo cadastrado ainda.</p>
+            <?php else: ?>
+                <?php foreach ($grupos as $grupo): ?>
+                    <div class="cardgrupos">
+                        <img src="<?= htmlspecialchars($grupo['imagem'] ?: 'img/apoio1.webp') ?>" alt="<?= htmlspecialchars($grupo['nome_grupo']) ?>">
 
+                        <div class="conteudocards">
+                            <span class="taggrupo"><?= htmlspecialchars($grupo['foco'] ?: 'Grupo de apoio') ?></span>
+                            <h3><?= htmlspecialchars($grupo['nome_grupo']) ?></h3>
 
+                            <div class="infosgrupo">
+                                <span><?= !empty($grupo['data_encontro']) ? htmlspecialchars(date('d/m/Y', strtotime($grupo['data_encontro']))) : 'Data a definir' ?></span>
+                                <span><?= !empty($grupo['horario']) ? htmlspecialchars(substr($grupo['horario'], 0, 5)) : 'Horário a definir' ?></span>
+                            </div>
 
-            <div class="cardgrupos">
+                            <p class="focogrupo">
+                                <?= htmlspecialchars($grupo['mais_info'] ?: 'Grupo de apoio para pessoas em tratamento.') ?>
+                            </p>
 
-                <img src="img/apoio1.webp" alt="">
-
-                <div class="conteudocards">
-
-                    <span class="taggrupo">Mulheres em tratamento</span>
-
-                    <h3>Florescer Juntos</h3>
-
-                    <div class="infosgrupo">
-                        <span> 25/06/2026</span>
-                        <span> 19h00</span>
+                            <div class="botoescards">
+                                <button class="cadastrogrupo">Cadastrar-se</button>
+                                <button class="infogrupos"
+                                    data-nome="<?= htmlspecialchars($grupo['nome_grupo'], ENT_QUOTES) ?>"
+                                    data-foco="<?= htmlspecialchars($grupo['foco'], ENT_QUOTES) ?>"
+                                    data-data="<?= !empty($grupo['data_encontro']) ? htmlspecialchars(date('d/m/Y', strtotime($grupo['data_encontro']))) : 'Data a definir' ?>"
+                                    data-horario="<?= !empty($grupo['horario']) ? htmlspecialchars(substr($grupo['horario'], 0, 5)) : 'Horário a definir' ?>"
+                                    data-info="<?= htmlspecialchars($grupo['mais_info'] ?: 'Sem descrição disponível.', ENT_QUOTES) ?>"
+                                    data-link="<?= htmlspecialchars($grupo['link'] ?: '#', ENT_QUOTES) ?>"
+                                    data-telefone="<?= htmlspecialchars($grupo['telefone_grupo'] ?: 'Não informado', ENT_QUOTES) ?>"
+                                    data-imagem="<?= htmlspecialchars($grupo['imagem'] ?: 'img/apoio1.webp', ENT_QUOTES) ?>"
+                                >Mais info</button>
+                            </div>
+                        </div>
                     </div>
-
-                    <p class="focogrupo">
-                        Mulheres com câncer de mama.
-                    </p>
-
-                    <div class="botoescards">
-                        <button class="cadastrogrupo">Cadastrar-se</button>
-                        <button class="infogrupos">Mais info</button>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="cardgrupos">
-
-                <img src="img/apoio2.jpg" alt="">
-
-                <div class="conteudocards">
-
-                    <span class="taggrupo">Pacientes em tratamento</span>
-
-                    <h3>Asas da Esperança</h3>
-
-                    <div class="infosgrupo">
-                        <span> 02/07/2026</span>
-                        <span> 20h00</span>
-                    </div>
-
-                    <p class="focogrupo">
-                        Pacientes oncológicos em geral.
-                    </p>
-
-                    <div class="botoescards">
-                        <button class="cadastrogrupo">Cadastrar-se</button>
-                        <button class="infogrupos">Mais info</button>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="cardgrupos">
-
-                <img src="img/apoio3.jpg" alt="">
-
-                <div class="conteudocards">
-
-                    <span class="taggrupo">18 a 25 anos</span>
-
-                    <h3>Jovens em Movimento</h3>
-
-                    <div class="infosgrupo">
-                        <span> 10/07/2026</span>
-                        <span> 18h00</span>
-                    </div>
-
-                    <p class="focogrupo">
-                        Jovens em tratamento oncológico.
-                    </p>
-
-                    <div class="botoescards">
-                        <button class="cadastrogrupo">Cadastrar-se</button>
-                        <button class="infogrupos">Mais info</button>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="cardgrupos">
-
-                <img src="img/apoio4.jpg" alt="">
-
-                <div class="conteudocards">
-
-                    <span class="taggrupo">Familiares e cuidadores</span>
-
-                    <h3>Fortes em Família</h3>
-
-                    <div class="infosgrupo">
-                        <span> 28/06/2026</span>
-                        <span> 10h00</span>
-                    </div>
-
-                    <p class="focogrupo">
-                        Apoio para quem acompanha pacientes.
-                    </p>
-
-                    <div class="botoescards">
-                        <button class="cadastrogrupo">Cadastrar-se</button>
-                        <button class="infogrupos">Mais info</button>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="cardgrupos">
-
-                <img src="img/apoio5.jpg" alt="">
-
-                <div class="conteudocards">
-
-                    <span class="taggrupo">Pós-tratamento</span>
-
-                    <h3>Nova Jornada</h3>
-
-                    <div class="infosgrupo">
-                        <span> 29/06/2026</span>
-                        <span> 16h00</span>
-                    </div>
-
-                    <p class="focogrupo">
-                        Pacientes em remissão e recuperação.
-                    </p>
-
-                    <div class="botoescards">
-                        <button class="cadastrogrupo">Cadastrar-se</button>
-                        <button class="infogrupos">Mais info</button>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="cardgrupos">
-
-                <img src="img/apoio6.jpg" alt="">
-
-                <div class="conteudocards">
-
-                    <span class="taggrupo">Acima de 60 anos</span>
-
-                    <h3>Experiência e Vida</h3>
-
-                    <div class="infosgrupo">
-                        <span> 24/06/2026</span>
-                        <span> 15h00</span>
-                    </div>
-
-                    <p class="focogrupo">
-                        Grupo voltado para pacientes idosos.
-                    </p>
-
-                    <div class="botoescards">
-                        <button class="grupoencerrado">Encerrado</button>
-                        <button class="infogrupos">Mais info</button>
-                    </div>
-
-                </div>
-
-            </div>
-
-
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
 
         </div>
@@ -274,33 +138,28 @@
             </div>
 
             <div class="modal-corpo">
-                <h2 class="h2titulo">Jovens em Movimento</h2>
-                <h3>Foco: Jovens em tratamento oncológico </h3>
+                <h2 class="h2titulo" id="modalNomeGrupo">Título do grupo</h2>
+                <h3 id="modalFoco">Foco: ...</h3>
 
                 <div class="modal-dados">
-                    <span>18h – Horário de Brasília</span>
-                    <span>10/07/2026</span>
+                    <span id="modalHorario">Horário</span>
+                    <span id="modalData">Data</span>
                 </div>
 
-                <p class="modal-texto">
-                    Os Grupos de Apoio Online são gratuitos e destinados a pessoas em tratamento contra o câncer, além
-                    de familiares, amigos e cuidadores.
+                <p class="modal-texto" id="modalDescricao">
+                    Descrição do grupo.
                 </p>
 
-                <ul>
-                    <li>Os encontros oferecem um espaço de acolhimento, escuta e apoio emocional.</li>
-                    <li>Para participar basta realizar sua inscrição gratuitamente.</li>
-                    <li>O link de acesso será enviado para o e-mail cadastrado.</li>
-                    <li>Caso não encontre o e-mail, verifique também as pastas de spam ou lixo eletrônico.</li>
-                    <li>As inscrições serão encerradas quando a data limite for atingida.</li>
-                    <li>Em caso de dúvidas, entre em contato pelo e-mail: suporte@vitalize.com.br</li>
-                </ul>
+                <div id="modalContato">
+                    <p><strong>Link:</strong> <a href="#" target="_blank" id="modalLink"></a></p>
+                    <p><strong>Telefone:</strong> <span id="modalTelefone"></span></p>
+                </div>
 
                 <h4>
                     Esperamos você para juntos construirmos uma rede de apoio, cuidado e esperança!
                 </h4>
 
-                <img src="img/logov.png" alt="">
+                <img id="modalImagem" src="" alt="Imagem do grupo">
             </div>
 
         </div>
@@ -310,13 +169,38 @@
     <script>
 
         const modal = document.getElementById("modalInfo");
+        const modalNome = document.getElementById("modalNomeGrupo");
+        const modalFoco = document.getElementById("modalFoco");
+        const modalHorario = document.getElementById("modalHorario");
+        const modalData = document.getElementById("modalData");
+        const modalDescricao = document.getElementById("modalDescricao");
+        const modalLink = document.getElementById("modalLink");
+        const modalTelefone = document.getElementById("modalTelefone");
 
         document.querySelectorAll(".infogrupos").forEach(botao => {
-
             botao.addEventListener("click", () => {
+                const nome = botao.getAttribute("data-nome") || "Grupo";
+                const foco = botao.getAttribute("data-foco") || "Grupo de apoio";
+                const data = botao.getAttribute("data-data") || "Data a definir";
+                const horario = botao.getAttribute("data-horario") || "Horário a definir";
+                const info = botao.getAttribute("data-info") || "Descrição não disponível.";
+                const link = botao.getAttribute("data-link") || "#";
+                const telefone = botao.getAttribute("data-telefone") || "Não informado";
+                const imagem = botao.getAttribute("data-imagem") || "img/apoio1.webp";
+
+                modalNome.textContent = nome;
+                modalFoco.textContent = "Foco: " + foco;
+                modalData.textContent = data;
+                modalHorario.textContent = horario;
+                modalDescricao.textContent = info;
+                modalLink.textContent = link !== "#" ? link : "Sem link disponível";
+                modalLink.href = link !== "#" ? link : "javascript:void(0);";
+                modalTelefone.textContent = telefone;
+                document.getElementById('modalImagem').src = imagem;
+                document.getElementById('modalImagem').alt = "Imagem do grupo " + nome;
+
                 modal.classList.add("ativo");
             });
-
         });
 
         document.querySelector(".fechar-modal").addEventListener("click", () => {
@@ -324,11 +208,9 @@
         });
 
         modal.addEventListener("click", (e) => {
-
             if (e.target === modal) {
                 modal.classList.remove("ativo");
             }
-
         });
 
     </script>

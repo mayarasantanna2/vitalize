@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require_once __DIR__ . '/../conexao.php';
+require_once __DIR__ . '/upload_helper.php';
 
 try {
 
@@ -48,6 +49,11 @@ try {
 
     }
 
+    $imagem_path = null;
+    if (!empty($_FILES['imagem']['name'])) {
+        $imagem_path = salvar_arquivo_upload($_FILES['imagem'], 'grupos');
+    }
+
     // Inserção
     $sql = "INSERT INTO grupos
     (
@@ -57,7 +63,8 @@ try {
         data_encontro,
         horario,
         link,
-        telefone_grupo
+        telefone_grupo,
+        imagem
     )
 
     VALUES
@@ -68,7 +75,8 @@ try {
         :data_encontro,
         :horario,
         :link,
-        :telefone_grupo
+        :telefone_grupo,
+        :imagem
     )";
 
     $stmt = $pdo->prepare($sql);
@@ -80,6 +88,7 @@ try {
     $stmt->bindParam(':horario', $horario);
     $stmt->bindParam(':link', $link);
     $stmt->bindParam(':telefone_grupo', $telefone_grupo);
+    $stmt->bindParam(':imagem', $imagem_path);
 
     if($stmt->execute()){
 

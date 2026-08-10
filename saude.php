@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +36,7 @@
                 <li><a href="sobre.php">Sobre</a></li>
             </ul>
 
-            <?php session_start(); if (!empty($_SESSION['id_usuario'])): ?>
+            <?php if (!empty($_SESSION['id_usuario'])): ?>
                 <a href="pagperfil.php" class="btnav">Perfil</a>
             <?php else: ?>
                 <a href="login.php" class="btnav">Entrar</a>
@@ -48,7 +51,7 @@
     <div class="painel">
 
         <div class="cabecalho-painel">
-            <h1>Olá, Ana!</h1>
+            <h1>Olá, <?= htmlspecialchars($_SESSION['nome'] ?? 'Usuário') ?>!</h1>
             <p>Acompanhe sua rotina hoje</p>
         </div>
 

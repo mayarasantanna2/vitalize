@@ -10,7 +10,7 @@ if (empty($_SESSION['id_usuario'])) {
 
 $id_usuario = (int) $_SESSION['id_usuario'];
 
-$sql = "SELECT id_usuario, nome, email, sobrenome, telefone FROM usuarios WHERE id_usuario = :id_usuario";
+$sql = "SELECT id_usuario, nome, email, sobrenome, telefone, foto_perfil FROM usuarios WHERE id_usuario = :id_usuario";
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
 $stmt->execute();
@@ -27,6 +27,11 @@ $nome = $usuario['nome'] ?? '';
 $email = $usuario['email'] ?? '';
 $sobrenome = $usuario['sobrenome'] ?? '';
 $telefone = $usuario['telefone'] ?? '';
+$fotoPerfil = $usuario['foto_perfil'] ?? '';
+
+if (empty($fotoPerfil) && !empty($_SESSION['foto_perfil'])) {
+    $fotoPerfil = $_SESSION['foto_perfil'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +65,7 @@ $telefone = $usuario['telefone'] ?? '';
                 <li><a href="saude.php">Saúde</a></li>
                 <li><a href="relatos.php">Relatos</a></li>
                 <li><a href="sobre.php">Sobre</a></li>
-                <li><a href="grupos.php">teste</a></li>
+                <li><a href="pagperfil.php"><?= htmlspecialchars(!empty($nome) ? $nome : 'Perfil') ?></a></li>
 
             </ul>
 
@@ -89,7 +94,8 @@ $telefone = $usuario['telefone'] ?? '';
 
                 <div class="foto-perfil">
 
-                    <img src="img/user.jpg" id="fotoPerfil">
+                    <?php $fotoPerfilSrc = $fotoPerfil; ?>
+                    <img src="<?= htmlspecialchars($fotoPerfilSrc) ?>" id="fotoPerfil">
 
                     <label for="novaFoto" class="editar-foto">
                         <i class="fa-solid fa-camera"></i>
@@ -188,13 +194,13 @@ $telefone = $usuario['telefone'] ?? '';
 
         </div>
 
-        <form id="formPerfil" class="form-consulta" method="POST" action="processos/atualizaperfil.php">
+        <form id="formPerfil" class="form-consulta" method="POST" action="processos/atualizaperfil.php" enctype="multipart/form-data">
 
             <div class="campo full">
 
                 <label>Foto de Perfil</label>
 
-                <input type="file">
+                <input type="file" name="foto_perfil" accept="image/png, image/jpeg, image/webp">
 
             </div>
 
