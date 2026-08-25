@@ -63,35 +63,35 @@ session_start();
 
                 <div class="humor">
 
-                    <button class="opcao-humor">
+                    <button class="opcao-humor" data-humor="Muito bem" type="button">
                         <div class="emoji roxo">
                             <i class="fa-regular fa-face-laugh"></i>
                         </div>
                         <span class="texto-emoji">Muito bem</span>
                     </button>
 
-                    <button class="opcao-humor">
+                    <button class="opcao-humor" data-humor="Bem" type="button">
                         <div class="emoji lilas">
                             <i class="fa-regular fa-face-smile"></i>
                         </div>
                         <span class="texto-emoji">Bem</span>
                     </button>
 
-                    <button class="opcao-humor">
+                    <button class="opcao-humor" data-humor="Mais ou menos" type="button">
                         <div class="emoji azul">
                             <i class="fa-regular fa-face-meh"></i>
                         </div>
                         <span class="texto-emoji">Mais ou menos</span>
                     </button>
 
-                    <button class="opcao-humor">
+                    <button class="opcao-humor" data-humor="Cansada" type="button">
                         <div class="emoji cinza">
                             <i class="fa-regular fa-face-frown"></i>
                         </div>
                         <span class="texto-emoji">Cansada</span>
                     </button>
 
-                    <button class="opcao-humor">
+                    <button class="opcao-humor" data-humor="Triste" type="button">
                         <div class="emoji rosa">
                             <i class="fa-regular fa-face-sad-tear"></i>
                         </div>
@@ -108,32 +108,32 @@ session_start();
 
                 <div class="sintomas">
 
-                    <button class="sintoma">
+                    <button class="sintoma" data-sintoma="Náusea" type="button">
                         <span class="material-symbols-outlined">sick</span>
                         Náusea
                     </button>
 
-                    <button class="sintoma">
+                    <button class="sintoma" data-sintoma="Dor" type="button">
                         <span class="material-symbols-outlined">bolt</span>
                         Dor
                     </button>
 
-                    <button class="sintoma">
+                    <button class="sintoma" data-sintoma="Sono" type="button">
                         <span class="material-symbols-outlined">bedtime</span>
                         Sono
                     </button>
 
-                    <button class="sintoma">
+                    <button class="sintoma" data-sintoma="Apetite" type="button">
                         <span class="material-symbols-outlined">restaurant</span>
                         Apetite
                     </button>
 
-                    <button class="sintoma">
+                    <button class="sintoma" data-sintoma="Hidratação" type="button">
                         <span class="material-symbols-outlined">water_drop</span>
                         Hidratação
                     </button>
 
-                    <button class="sintoma">
+                    <button class="sintoma" data-sintoma="Disposição" type="button">
                         <span class="material-symbols-outlined">directions_walk</span>
                         Disposição
                     </button>
@@ -145,39 +145,32 @@ session_start();
             <div class="card">
 
                 <div class="cabecalho-card">
-                    <h3>Cardápio do dia</h3>
+                    <div>
+                        <h3>Seu café da manhã com IA</h3>
+                        <p class="subtitulo">Escolha seu humor e, se quiser, os sintomas.</p>
+                    </div>
+                    <button type="button" id="gerarPlano" class="btn-ia" disabled>
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Gerar sugestão
+                    </button>
                 </div>
 
-                <div class="refeicoes">
-
-                    <div class="refeicao">
-                        <span class="categoria-refeicao cafe">Café da manhã</span>
-                        <span class="texto-refeicao">
-                            Vitamina de frutas com aveia, pão integral com queijo branco.
-                        </span>
+                <div class="restricoes-alimentares">
+                    <label for="restricoesAlimentares">
+                        <i class="fa-solid fa-utensils"></i> Restrições alimentares <span class="campo-opcional">(opcional)</span>
+                    </label>
+                    <textarea id="restricoesAlimentares" maxlength="500" rows="3"
+                        placeholder="Ex.: alergia a amendoim, intolerância à lactose, alimentação vegetariana..."></textarea>
+                    <div class="rodape-restricoes">
+                        <small>Você pode deixar este campo em branco.</small>
+                        <span id="contadorRestricoes">0/500</span>
                     </div>
+                </div>
 
-                    <div class="refeicao">
-                        <span class="categoria-refeicao almoco">Almoço</span>
-                        <span class="texto-refeicao">
-                            Arroz integral, frango grelhado, legumes cozidos e salada verde.
-                        </span>
+                <div class="refeicoes" id="resultadoIA" aria-live="polite">
+                    <div class="ia-vazio">
+                        <i class="fa-regular fa-heart"></i>
+                        <p>Conte como você está para receber uma sugestão acolhedora para esta manhã.</p>
                     </div>
-
-                    <div class="refeicao">
-                        <span class="categoria-refeicao lanche">Lanche</span>
-                        <span class="texto-refeicao">
-                            Iogurte natural com frutas ou castanhas.
-                        </span>
-                    </div>
-
-                    <div class="refeicao">
-                        <span class="categoria-refeicao jantar">Jantar</span>
-                        <span class="texto-refeicao">
-                            Sopa de legumes com frango desfiado e torrada integral.
-                        </span>
-                    </div>
-
                 </div>
 
             </div>
@@ -574,6 +567,63 @@ session_start();
         });
     </script>
     <script>
+        const botaoGerar = document.getElementById('gerarPlano');
+        const resultadoIA = document.getElementById('resultadoIA');
+        const campoRestricoes = document.getElementById('restricoesAlimentares');
+        const contadorRestricoes = document.getElementById('contadorRestricoes');
+        let humorSelecionado = '';
+
+        campoRestricoes.value = localStorage.getItem('vitalize_restricoes_alimentares') || '';
+        contadorRestricoes.textContent = `${campoRestricoes.value.length}/500`;
+        campoRestricoes.addEventListener('input', () => {
+            localStorage.setItem('vitalize_restricoes_alimentares', campoRestricoes.value.trim());
+            contadorRestricoes.textContent = `${campoRestricoes.value.length}/500`;
+        });
+
+        function escapar(texto) {
+            const elemento = document.createElement('span');
+            elemento.textContent = String(texto ?? '');
+            return elemento.innerHTML;
+        }
+
+        async function gerarPlanoMatinal() {
+            const sintomas = [...document.querySelectorAll('.sintoma.ativo')]
+                .map(item => item.dataset.sintoma);
+            const restricoes = campoRestricoes.value.trim();
+            botaoGerar.disabled = true;
+            botaoGerar.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Preparando...';
+            resultadoIA.innerHTML = '<div class="ia-vazio"><p>Criando uma sugestão para você...</p></div>';
+
+            try {
+                const resposta = await fetch('api/assistente_bem_estar.php', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({humor: humorSelecionado, sintomas, restricoes})
+                });
+                const dados = await resposta.json();
+                if (!resposta.ok) throw new Error(dados.erro || 'Não foi possível gerar a sugestão.');
+
+                const itens = dados.itens.map(item => `
+                    <li><strong>${escapar(item.nome)}</strong><span>${escapar(item.quantidade)}</span></li>
+                `).join('');
+                resultadoIA.innerHTML = `
+                    <div class="plano-ia">
+                        <h4>${escapar(dados.titulo)}</h4>
+                        <ul>${itens}</ul>
+                        <p class="preparo-ia"><strong>Como preparar:</strong> ${escapar(dados.preparo)}</p>
+                        <blockquote>${escapar(dados.mensagem)}</blockquote>
+                        <small><i class="fa-solid fa-circle-info"></i> ${escapar(dados.observacao)}</small>
+                    </div>`;
+            } catch (erro) {
+                resultadoIA.innerHTML = `<div class="ia-erro"><i class="fa-solid fa-triangle-exclamation"></i><p>${escapar(erro.message)}</p></div>`;
+            } finally {
+                botaoGerar.disabled = !humorSelecionado;
+                botaoGerar.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Gerar outra sugestão';
+            }
+        }
+
+        botaoGerar.addEventListener('click', gerarPlanoMatinal);
+
         // Humor: seleção única
         document.querySelectorAll('.opcao-humor').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -583,6 +633,8 @@ session_start();
                 });
 
                 btn.classList.add('ativo');
+                humorSelecionado = btn.dataset.humor;
+                botaoGerar.disabled = false;
             });
         });
         document.querySelectorAll('.sintoma').forEach(btn => {
