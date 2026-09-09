@@ -1,207 +1,31 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Tempo de geração: 13/08/2026 às 15:29
--- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
+-- Vitalize atualizado: instalação NOVA em banco vazio.
+-- Não apaga dados e não substitui a migração de bancos existentes.
+SET NAMES utf8mb4;
+CREATE DATABASE IF NOT EXISTS vitalize CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE vitalize;
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+CREATE TABLE usuarios (id_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY, nome VARCHAR(100) NOT NULL, sobrenome VARCHAR(100) NULL, email VARCHAR(150) NOT NULL UNIQUE, senha VARCHAR(255) NOT NULL, telefone VARCHAR(20) NULL, foto_perfil VARCHAR(255) NULL, token_verificacao VARCHAR(255) NULL, email_verificado TINYINT(1) NOT NULL DEFAULT 0, tipo ENUM('usuario','admin') NOT NULL DEFAULT 'usuario', data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP, session_version INT NOT NULL DEFAULT 0, foto_public_id VARCHAR(255) NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE endereco (id_endereco INT AUTO_INCREMENT PRIMARY KEY, rua VARCHAR(150), numero VARCHAR(10), bairro VARCHAR(100), cidade VARCHAR(100), estado VARCHAR(2), cep VARCHAR(10)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+CREATE TABLE grupos (id_grupo INT AUTO_INCREMENT PRIMARY KEY, id_criador INT NULL, nome_grupo VARCHAR(150) NOT NULL, mais_info TEXT, foco VARCHAR(100), data_encontro DATE, horario TIME, link VARCHAR(2048), telefone_grupo VARCHAR(150), imagem VARCHAR(255), imagem_public_id VARCHAR(255), status VARCHAR(15) NOT NULL DEFAULT 'pendente', INDEX(id_criador), FOREIGN KEY(id_criador) REFERENCES usuarios(id_usuario)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Banco de dados: `vitalize`
---
-CREATE DATABASE IF NOT EXISTS `vitalize` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `vitalize`;
+CREATE TABLE relatos (id_relato INT AUTO_INCREMENT PRIMARY KEY, id_usuario INT NOT NULL, titulo VARCHAR(150), relato TEXT NOT NULL, anonimo TINYINT(1) NOT NULL DEFAULT 0, data_publicacao DATETIME DEFAULT CURRENT_TIMESTAMP, status VARCHAR(15) NOT NULL DEFAULT 'pendente', INDEX(id_usuario), INDEX(data_publicacao), FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
+CREATE TABLE consultas (id_consulta INT AUTO_INCREMENT PRIMARY KEY, data DATE, horario TIME, medico VARCHAR(150), nome_local VARCHAR(150), id_endereco INT NULL, id_usuario INT NULL, tipo VARCHAR(20) NOT NULL DEFAULT 'Consulta', especialidade VARCHAR(100), INDEX(id_usuario,data), FOREIGN KEY(id_endereco) REFERENCES endereco(id_endereco), FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Estrutura para tabela `consultas`
---
+CREATE TABLE participantes (id_grupo INT NOT NULL, id_usuario INT NOT NULL, criado_em DATETIME DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(id_grupo,id_usuario), FOREIGN KEY(id_grupo) REFERENCES grupos(id_grupo) ON DELETE CASCADE, FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE `consultas` (
-  `id_consulta` int(11) NOT NULL,
-  `data` date DEFAULT NULL,
-  `horario` time DEFAULT NULL,
-  `medico` varchar(150) DEFAULT NULL,
-  `nome_local` varchar(150) DEFAULT NULL,
-  `id_endereco` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+CREATE TABLE tokens_conta (token_hash CHAR(64) PRIMARY KEY, id_usuario INT NOT NULL, finalidade VARCHAR(12) NOT NULL, expires_at BIGINT NOT NULL, FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
+CREATE TABLE app_sessions (id CHAR(64) PRIMARY KEY, data MEDIUMBLOB NOT NULL, expires_at BIGINT NOT NULL, INDEX(expires_at)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Estrutura para tabela `endereco`
---
+CREATE TABLE rate_limits (bucket CHAR(64) PRIMARY KEY, hits INT NOT NULL, expires_at BIGINT NOT NULL, INDEX(expires_at)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE `endereco` (
-  `id_endereco` int(11) NOT NULL,
-  `rua` varchar(150) DEFAULT NULL,
-  `numero` varchar(10) DEFAULT NULL,
-  `bairro` varchar(100) DEFAULT NULL,
-  `cidade` varchar(100) DEFAULT NULL,
-  `estado` varchar(2) DEFAULT NULL,
-  `cep` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+CREATE TABLE ai_usage (bucket VARCHAR(100) PRIMARY KEY, calls INT NOT NULL DEFAULT 0, tokens INT NOT NULL DEFAULT 0, expires_at BIGINT NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
+CREATE TABLE ai_cache (id_usuario INT NOT NULL, cache_key CHAR(64) NOT NULL, resultado TEXT NOT NULL, expires_at BIGINT NOT NULL, PRIMARY KEY(id_usuario,cache_key), FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Estrutura para tabela `grupos`
---
+CREATE TABLE denuncias (id INT AUTO_INCREMENT PRIMARY KEY, id_usuario INT NOT NULL, tipo VARCHAR(10) NOT NULL, alvo INT NOT NULL, motivo VARCHAR(1000) NOT NULL, resolvida TINYINT NOT NULL DEFAULT 0, criada_em DATETIME DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE `grupos` (
-  `id_grupo` int(11) NOT NULL,
-  `id_criador` int(11) DEFAULT NULL,
-  `nome_grupo` varchar(150) NOT NULL,
-  `mais_info` varchar(150) DEFAULT NULL,
-  `foco` varchar(100) DEFAULT NULL,
-  `data_encontro` date DEFAULT NULL,
-  `horario` datetime DEFAULT NULL,
-  `link` varchar(150) DEFAULT NULL,
-  `contato` varchar(150) DEFAULT NULL,
-  `imagem` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `relatos`
---
-
-CREATE TABLE `relatos` (
-  `id_relato` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `titulo` varchar(150) DEFAULT NULL,
-  `conteudo` text NOT NULL,
-  `data_publicacao` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `usuarios`
---
-
-CREATE TABLE `usuarios` (
-  `id_usuario` int(11) NOT NULL,
-  `nome` varchar(100) NOT NULL,
-  `sobrenome` varchar(100) DEFAULT NULL,
-  `email` varchar(150) NOT NULL,
-  `senha` varchar(255) NOT NULL,
-  `telefone` varchar(20) DEFAULT NULL,
-  `foto_perfil` varchar(255) DEFAULT NULL,
-  `token_verificacao` varchar(255) DEFAULT NULL,
-  `email_verificado` tinyint(1) DEFAULT 0,
-  `tipo` enum('usuario','admin') DEFAULT 'usuario',
-  `data_cadastro` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Índices para tabelas despejadas
---
-
---
--- Índices de tabela `consultas`
---
-ALTER TABLE `consultas`
-  ADD PRIMARY KEY (`id_consulta`),
-  ADD KEY `id_endereco` (`id_endereco`);
-
---
--- Índices de tabela `endereco`
---
-ALTER TABLE `endereco`
-  ADD PRIMARY KEY (`id_endereco`);
-
---
--- Índices de tabela `grupos`
---
-ALTER TABLE `grupos`
-  ADD PRIMARY KEY (`id_grupo`),
-  ADD KEY `id_criador` (`id_criador`);
-
---
--- Índices de tabela `relatos`
---
-ALTER TABLE `relatos`
-  ADD PRIMARY KEY (`id_relato`),
-  ADD KEY `id_usuario` (`id_usuario`);
-
---
--- Índices de tabela `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_usuario`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
--- AUTO_INCREMENT para tabelas despejadas
---
-
---
--- AUTO_INCREMENT de tabela `consultas`
---
-ALTER TABLE `consultas`
-  MODIFY `id_consulta` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `endereco`
---
-ALTER TABLE `endereco`
-  MODIFY `id_endereco` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `grupos`
---
-ALTER TABLE `grupos`
-  MODIFY `id_grupo` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `relatos`
---
-ALTER TABLE `relatos`
-  MODIFY `id_relato` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Restrições para tabelas despejadas
---
-
---
--- Restrições para tabelas `consultas`
---
-ALTER TABLE `consultas`
-  ADD CONSTRAINT `consultas_ibfk_1` FOREIGN KEY (`id_endereco`) REFERENCES `endereco` (`id_endereco`);
-
---
--- Restrições para tabelas `grupos`
---
-ALTER TABLE `grupos`
-  ADD CONSTRAINT `grupos_ibfk_1` FOREIGN KEY (`id_criador`) REFERENCES `usuarios` (`id_usuario`);
-
---
--- Restrições para tabelas `relatos`
---
-ALTER TABLE `relatos`
-  ADD CONSTRAINT `relatos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+CREATE TABLE media_cleanup (public_id VARCHAR(255) PRIMARY KEY, created_at DATETIME DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

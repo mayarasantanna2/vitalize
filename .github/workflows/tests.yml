@@ -1,0 +1,46 @@
+name: PHP and database checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mariadb:10.11
+        env:
+          MARIADB_ROOT_PASSWORD: test-only-password
+          MARIADB_DATABASE: vitalize_test_ci
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s --health-timeout=5s --health-retries=10
+    env:
+      APP_ENV: local
+      APP_URL: http://127.0.0.1:18089
+      DB_HOST: 127.0.0.1
+      DB_PORT: "3306"
+      DB_NAME: vitalize_test_ci
+      DB_USER: root
+      DB_PASSWORD: test-only-password
+      MAIL_TRANSPORT: log
+      MAIL_LOG_DIR: /tmp/vitalize-mail
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: pdo_mysql, curl, mbstring, gd, fileinfo
+      - name: Syntax
+        run: find . -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Database
+        run: php bin/migrate.php
+      - name: Start development server
+        run: php -S 127.0.0.1:18089 -t . router-local.php > /tmp/vitalize-server.log 2>&1 &
+      - name: Integration
+        run: |
+          curl --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:18089/health.php
+          php tests/integration.php
+      - name: Build production container
+        run: docker build -t vitalize-test .

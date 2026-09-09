@@ -1,0 +1,9 @@
+.git
+.env*
+config.local.php
+storage/*
+tests
+database
+*.sql
+*.md
+router-local.php

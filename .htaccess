@@ -1,0 +1,8 @@
+Options -Indexes
+DirectoryIndex index.php
+<FilesMatch "(^\.|\.sql$|\.md$|\.txt$|\.ini$|\.json$|\.ya?ml$|^Dockerfile$|^config\.local\.php$|^conexao\.php$|^composer\.)">
+    Require all denied
+</FilesMatch>
+RewriteEngine On
+RewriteRule ^(?:app|bin|tests|storage|database)(?:/|$) - [F,L]
+RewriteRule ^(?:temp_|config\.) - [F,L]
