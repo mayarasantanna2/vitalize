@@ -1,10 +1,10 @@
 <?php
 
-$host = getenv('mysql.railway.internal');
-$porta = getenv('3306') ?: '3306';
-$banco = getenv('railway');
-$usuario = getenv('root');
-$senha = getenv('DwLacVNWyorzHJVGwxaniDOZGOcbSiiI');
+$host = getenv('DB_HOST');
+$porta = getenv('DB_PORT') ?: '3306';
+$banco = getenv('DB_NAME');
+$usuario = getenv('DB_USER');
+$senha = getenv('DB_PASSWORD');
 
 try {
     $pdo = new PDO(
@@ -18,7 +18,7 @@ try {
         ]
     );
 } catch (PDOException $e) {
-    error_log("Erro de conexão com banco: " . $e->getMessage());
+    error_log("Erro MySQL: " . $e->getMessage());
     http_response_code(500);
-    exit("Erro interno do servidor.");
+    exit("Erro interno ao conectar ao banco.");
 }
