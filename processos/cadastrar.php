@@ -17,6 +17,18 @@ try {
     $senha = trim($_POST['senha'] ?? '');
     $confirmarSenha = trim($_POST['confirmar_senha'] ?? '');
 
+    if ($nome === '' || $email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION['erro_cadastro'] = 'Informe nome e um e-mail válido.';
+        header("Location: ../cadastro.php");
+        exit();
+    }
+
+    if (strlen($senha) < 6) {
+        $_SESSION['erro_cadastro'] = 'A senha deve ter pelo menos 6 caracteres.';
+        header("Location: ../cadastro.php");
+        exit();
+    }
+
     // Verificar se as senhas são iguais
     if ($senha !== $confirmarSenha) {
 

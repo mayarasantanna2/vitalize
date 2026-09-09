@@ -8,10 +8,18 @@ ini_set('display_errors', 1);
 require_once __DIR__ . '/../conexao.php';
 require_once __DIR__ . '/upload_helper.php';
 
+if (empty($_SESSION['id_usuario'])) {
+    header('Location: ../login.php');
+    exit();
+}
+
+$id_criador = (int) $_SESSION['id_usuario'];
+
 try {
 
     // Receber dados do formulário
     $nome = trim($_POST['nome'] ?? '');
+    $responsavel = trim($_POST['responsavel'] ?? '');
     $foco = trim($_POST['foco'] ?? '');
     $mais_info = trim($_POST['mais_info'] ?? '');
     $telefone_grupo = trim($_POST['telefone_grupo'] ?? '');
@@ -21,12 +29,16 @@ try {
 
     $data_encontro = null;
     if (!empty($data_encontro_input)) {
-        $data_encontro = date('Y-m-d H:i:s', strtotime($data_encontro_input));
+        $data_encontro = date('Y-m-d', strtotime($data_encontro_input));
     }
 
     $horario = null;
     if (!empty($horario_input)) {
-        $horario = date('H:i', strtotime($horario_input));
+        $horario = date('H:i:s', strtotime($horario_input));
+    }
+
+    if ($nome === '') {
+        throw new RuntimeException('O nome do grupo é obrigatório.');
     }
 
     // Verificar se já existe um grupo com o mesmo nome
@@ -57,19 +69,23 @@ try {
     // Inserção
     $sql = "INSERT INTO grupos
     (
+        id_criador,
         nome_grupo,
+        responsavel,
         mais_info,
         foco,
         data_encontro,
         horario,
         link,
-        telefone_grupo,
+        contato,
         imagem
     )
 
     VALUES
     (
+        :id_criador,
         :nome,
+        :responsavel,
         :mais_info,
         :foco,
         :data_encontro,
@@ -82,6 +98,8 @@ try {
     $stmt = $pdo->prepare($sql);
 
     $stmt->bindParam(':nome', $nome);
+    $stmt->bindParam(':responsavel', $responsavel);
+    $stmt->bindParam(':id_criador', $id_criador, PDO::PARAM_INT);
     $stmt->bindParam(':mais_info', $mais_info);
     $stmt->bindParam(':foco', $foco);
     $stmt->bindParam(':data_encontro', $data_encontro);
@@ -108,7 +126,7 @@ try {
 
     }
 
-}catch(PDOException $e){
+}catch(Throwable $e){
 
     $_SESSION['erro_grupo'] = "Erro ao cadastrar o grupo: " . $e->getMessage();
 

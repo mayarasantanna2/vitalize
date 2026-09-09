@@ -23,8 +23,8 @@ if ($senha !== '' && $senha !== $confirmar_senha) {
     exit();
 }
 
-if ($email === '') {
-    $_SESSION['erro_perfil'] = 'O e-mail é obrigatório.';
+if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $_SESSION['erro_perfil'] = 'Informe um e-mail válido.';
     header('Location: ../pagperfil.php');
     exit();
 }
@@ -45,7 +45,13 @@ $sql = "UPDATE usuarios SET nome = :nome, sobrenome = :sobrenome, email = :email
 
 $foto_perfil_path = null;
 if (!empty($_FILES['foto_perfil']['name'])) {
-    $foto_perfil_path = salvar_arquivo_upload($_FILES['foto_perfil'], 'usuarios');
+    try {
+        $foto_perfil_path = salvar_arquivo_upload($_FILES['foto_perfil'], 'usuarios');
+    } catch (RuntimeException $e) {
+        $_SESSION['erro_perfil'] = $e->getMessage();
+        header('Location: ../pagperfil.php');
+        exit();
+    }
     $sql .= ", foto_perfil = :foto_perfil";
 }
 

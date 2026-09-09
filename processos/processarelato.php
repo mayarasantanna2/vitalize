@@ -20,15 +20,21 @@ if ($titulo === '' || $conteudo === '') {
     exit();
 }
 
-$sql = "INSERT INTO relatos (id_usuario, titulo, relato, data_publicacao, anonimo)
+$sql = "INSERT INTO relatos (id_usuario, titulo, conteudo, data_publicacao, anonimo)
 VALUES (:id_usuario, :titulo, :conteudo, NOW(), :anonimo)";
 
-$stmt = $pdo->prepare($sql);
-$stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-$stmt->bindParam(':titulo', $titulo);
-$stmt->bindParam(':conteudo', $conteudo);
-$stmt->bindParam(':anonimo', $anonimo, PDO::PARAM_INT);
-$stmt->execute();
+try {
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+    $stmt->bindParam(':titulo', $titulo);
+    $stmt->bindParam(':conteudo', $conteudo);
+    $stmt->bindParam(':anonimo', $anonimo, PDO::PARAM_INT);
+    $stmt->execute();
+} catch (PDOException $e) {
+    $_SESSION['erro_relato'] = 'Não foi possível publicar o relato agora.';
+    header("Location: ../relatos.php");
+    exit();
+}
 
 $_SESSION['sucesso_relato'] = 'Relato enviado com sucesso!';
 header("Location: ../relatos.php");
