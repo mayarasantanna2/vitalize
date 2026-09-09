@@ -15,8 +15,7 @@ return [
     'MAIL_TRANSPORT' => 'resend',
     'RESEND_API_KEY' => '',
     'MAIL_FROM' => '',
-    'GROQ_API_KEY' => '',
-    'GROQ_MODEL' => 'openai/gpt-oss-20b',
+    // GROQ_API_KEY and GROQ_MODEL must be real environment variables, never literal keys here.
     'UPLOADS_ENABLED' => '0',
     'CLOUDINARY_CLOUD_NAME' => '',
     'CLOUDINARY_API_KEY' => '',

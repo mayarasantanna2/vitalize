@@ -41,6 +41,13 @@ $a->action('signup',['nome'=>'Teste A','email'=>$email,'senha'=>$password,'confi
 [$status,$html]=$a->request('/pagperfil.php'); check($status===200 && str_contains($html,$email),'Cadastro válido autentica usuário');
 check($a->csrf!==$oldToken,'Cadastro renova proteção da sessão');
 $uid=(int)query('SELECT id_usuario FROM usuarios WHERE email=?',[$email])->fetchColumn();
+check($a->request('/processos/agenda.php')[0]===200,'API legada usa a sessão atual');
+check($a->request('/processos/agenda.php',['acao'=>'salvar'])[0]===403,'API da agenda bloqueia escrita sem CSRF');
+$legacy=['acao'=>'salvar','csrf'=>$a->csrf,'tipo'=>'Consulta','especialidade'=>'Teste','nome_local'=>'Local','data'=>'2026-10-01','horario'=>'10:00'];
+check($a->request('/processos/agenda.php',$legacy)[0]===200,'API da agenda salva com sessão e CSRF atuais');
+$legacyId=(int)query('SELECT id_consulta FROM consultas WHERE id_usuario=?',[$uid])->fetchColumn();
+check($a->request('/processos/agenda.php',[...$legacy,'especialidade'=>['invalida']])[0]===422,'API da agenda rejeita campos estruturados');
+check($a->request('/processos/agenda.php',['acao'=>'excluir','csrf'=>$a->csrf,'id_consulta'=>$legacyId])[0]===200,'API da agenda exclui compromisso próprio');
 check(password_verify($password,query('SELECT senha FROM usuarios WHERE id_usuario=?',[$uid])->fetchColumn()),'Senha armazenada com hash válido');
 $b->request('/cadastro.php'); $b->action('signup',['nome'=>'Teste B','email'=>$emailB,'senha'=>$password,'confirmar_senha'=>$password,'privacidade'=>'1']); $b->request('/pagperfil.php');
 $uidB=(int)query('SELECT id_usuario FROM usuarios WHERE email=?',[$emailB])->fetchColumn();

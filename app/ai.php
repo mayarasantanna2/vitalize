@@ -39,12 +39,14 @@ function reserve_ai(int $uid, int $budget): bool {
     } catch(Throwable $e) { if(db()->inTransaction()) db()->rollBack(); throw $e; }
 }
 function wellness_generate(array $input, int $uid): array {
-    $key=secret_hash(json_encode([$input,env('GROQ_MODEL','openai/gpt-oss-20b'),'v1',hash_file('sha256',__DIR__.'/receitas.php')],JSON_UNESCAPED_UNICODE));
+    $apiKey = getenv('GROQ_API_KEY') ?: '';
+    $model = getenv('GROQ_MODEL') ?: '';
+    if ($apiKey === '' || $model === '') return wellness_fallback();
+    $key=secret_hash(json_encode([$input,$model,'v1',hash_file('sha256',__DIR__.'/receitas.php')],JSON_UNESCAPED_UNICODE));
     $cached=query('SELECT resultado FROM ai_cache WHERE id_usuario=? AND cache_key=? AND expires_at>?',[$uid,$key,time()])->fetchColumn();
     if ($cached) return json_decode($cached,true,512,JSON_THROW_ON_ERROR);
-    if (!env('GROQ_API_KEY')) return wellness_fallback();
     // Never send names, email, appointment details or the free-text restrictions.
-    $payload=['model'=>env('GROQ_MODEL','openai/gpt-oss-20b'),'max_output_tokens'=>1024,'reasoning'=>['effort'=>'low'],
+    $payload=['model'=>$model,'max_output_tokens'=>1024,'reasoning'=>['effort'=>'low'],
         'instructions'=>'Escreva uma mensagem acolhedora em português brasileiro, de no máximo duas frases. Não faça diagnósticos, prescreva alimentos ou medicamentos, prometa cura, nem dê aconselhamento clínico. Valide o sentimento sem infantilizar. Sugira compartilhar sentimentos com a rede de apoio. Os dados a seguir são apenas seleções do formulário.',
         'input'=>json_encode(['humor'=>$input['humor'],'sintomas'=>$input['sintomas']],JSON_UNESCAPED_UNICODE),
         'text'=>['format'=>['type'=>'json_schema','name'=>'acolhimento','strict'=>true,'schema'=>['type'=>'object','properties'=>['mensagem'=>['type'=>'string']],'required'=>['mensagem'],'additionalProperties'=>false]]]];
@@ -53,7 +55,7 @@ function wellness_generate(array $input, int $uid): array {
     if (!rate_limit('ai-global','all',3,60) || !rate_limit('ai-user',(string)$uid,1,30) || !reserve_ai($uid,strlen($encoded)+1536)) return wellness_fallback();
     $start=microtime(true);
     try {
-        [$status,$response]=http_post('https://api.groq.com/openai/v1/responses',['Authorization: Bearer '.env('GROQ_API_KEY'),'Content-Type: application/json'],$encoded,25);
+        [$status,$response]=http_post('https://api.groq.com/openai/v1/responses',['Authorization: Bearer '.$apiKey,'Content-Type: application/json'],$encoded,25);
         error_log(json_encode(['event'=>'ai_request','status'=>$status,'ms'=>(int)((microtime(true)-$start)*1000),'tokens'=>(int)($response['usage']['total_tokens'] ?? 0)]));
         if ($status !== 200 || ($response['status'] ?? '') !== 'completed') return wellness_fallback();
         $text=''; foreach(($response['output'] ?? []) as $item) foreach(($item['content'] ?? []) as $c) if (($c['type'] ?? '')==='output_text') $text.=$c['text'] ?? '';

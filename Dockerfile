@@ -13,4 +13,4 @@ RUN sed -i 's/Listen 80/Listen 10000/' /etc/apache2/ports.conf \
     && a2enconf vitalize
 ENV APP_ENV=production
 EXPOSE 10000
-CMD ["apache2-foreground"]
+CMD ["sh", "/var/www/html/bin/start-container.sh"]

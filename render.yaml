@@ -4,7 +4,7 @@ services:
     runtime: docker
     plan: free
     dockerfilePath: ./Dockerfile
-    healthCheckPath: /health.php
+    healthCheckPath: /ready.php
     envVars:
       - key: APP_ENV
         value: production

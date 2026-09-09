@@ -1,5 +1,41 @@
 # Vitalize — versão corrigida
 
+## Revisão de hospedagem de 09/09/2026
+
+Base remota incorporada: `997e40c`. A revisão local anterior foi preservada
+e integrada aos ajustes remotos de conexão, agenda e Railway. Os uploads
+existentes no GitHub foram mantidos. Nenhuma chave Groq literal foi encontrada
+nos commits acessíveis ou arquivos desta cópia.
+
+Antes de ativar esta versão em um banco existente, faça backup e execute
+`php bin/migrate.php` com as variáveis do banco correto. Não importe o SQL de
+instalação por cima dos dados existentes. A migração não roda automaticamente.
+
+No Railway, configure DB_HOST, DB_PORT, DB_NAME, DB_USER e DB_PASSWORD com as
+referências do serviço MySQL. Use DB_SSL_CA em conexões públicas; somente se
+ambos os serviços usarem a rede privada, configure DB_PRIVATE_NETWORK=1.
+Configure APP_ENV=production, APP_URL com a URL HTTPS real, APP_BASE_PATH vazio
+na raiz e APP_KEY com pelo menos 32 caracteres aleatórios. O container respeita
+PORT e usa 10000 se a variável não existir.
+
+GROQ_API_KEY e GROQ_MODEL são lidas exclusivamente com getenv. Configure ambas
+no ambiente, inclusive no desenvolvimento; config.local.php não fornece essas
+duas variáveis. Revogue a chave anteriormente vazada no painel da Groq.
+Sem as variáveis, a resposta de contingência é identificada na interface.
+
+Railway e Render consultam /ready.php, que verifica configuração essencial e
+estrutura do banco e retorna 503 quando indisponível. /health.php continua
+indicando apenas que o processo PHP respondeu. A prontidão não testa entrega
+de e-mail, chamadas à IA ou uploads externos.
+
+Validação desta revisão: 63 verificações HTTP/banco aprovadas, 51 arquivos PHP
+sem erros de sintaxe e migração repetida sobre banco vazio e sobre a estrutura
+remota atual. Banco de testes isolado, sem dados reais nem chaves externas.
+O build Docker e os serviços externos ainda precisam de validação no provedor.
+
+Referências: [Docker no Railway](https://docs.railway.com/builds/dockerfiles)
+e [Responses API da Groq](https://console.groq.com/docs/responses-api).
+
 Aplicação PHP/MySQL de apoio, com cadastro, perfil, grupos moderados, relatos,
 agenda privada, recuperação de senha, confirmação de e-mail e mensagens por IA.
 Base de origem: mayarasantanna2/vitalize, commit 69defc1 (25/08/2026).

@@ -15,7 +15,7 @@ function db(): PDO {
     if (env('DB_SSL_CA') !== '') {
         $options[PDO::MYSQL_ATTR_SSL_CA] = env('DB_SSL_CA');
         $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
-    } elseif (production()) throw new RuntimeException('Configure DB_SSL_CA.');
+    } elseif (production() && env('DB_PRIVATE_NETWORK') !== '1') throw new RuntimeException('Configure DB_SSL_CA ou confirme a rede privada com DB_PRIVATE_NETWORK=1.');
     $pdo = new PDO('mysql:host='.env('DB_HOST', '127.0.0.1').';port='.env('DB_PORT', '3306').';dbname='.env('DB_NAME', 'vitalize').';charset=utf8mb4', env('DB_USER', 'root'), env('DB_PASSWORD'), $options);
     $pdo->exec("SET time_zone = '+00:00'");
     return $pdo;
